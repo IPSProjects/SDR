@@ -29,15 +29,15 @@ stages:
     outs:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
-  EtOH-x10:
-    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EtOH-x10
+  Acetone-x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name Acetone-x10
     deps:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
     - nodes/Packmol/atoms.h5
     - nodes/Packmol/packmol
     params:
-    - EtOH-x10
+    - Acetone-x10
     outs:
-    - nodes/EtOH-x10/model_outs
-    - nodes/EtOH-x10/optim.traj
+    - nodes/Acetone-x10/model_outs
+    - nodes/Acetone-x10/optim.traj

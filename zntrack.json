@@ -67,7 +67,7 @@
         "wfn_restart_file": null,
         "wfn_restart_node": null
     },
-    "EtOH-x10": {
+    "Acetone-x10": {
         "data": {
             "_type": "znflow.Connection",
             "value": {
