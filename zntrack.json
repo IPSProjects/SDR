@@ -67,7 +67,7 @@
         "wfn_restart_file": null,
         "wfn_restart_node": null
     },
-    "H2O-x10": {
+    "MeOH-x10": {
         "data": {
             "_type": "znflow.Connection",
             "value": {

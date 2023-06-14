@@ -29,15 +29,15 @@ stages:
     outs:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
-  H2O-x10:
-    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O-x10
+  MeOH-x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name MeOH-x10
     deps:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
     - nodes/Packmol/atoms.h5
     - nodes/Packmol/packmol
     params:
-    - H2O-x10
+    - MeOH-x10
     outs:
-    - nodes/H2O-x10/model_outs
-    - nodes/H2O-x10/optim.traj
+    - nodes/MeOH-x10/model_outs
+    - nodes/MeOH-x10/optim.traj
