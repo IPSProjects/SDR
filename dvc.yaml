@@ -1,0 +1,43 @@
+stages:
+  SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms
+    params:
+    - SmilesToAtoms
+    outs:
+    - nodes/SmilesToAtoms/atoms.h5
+    - nodes/SmilesToAtoms/molecule.png
+  Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
+    deps:
+    - nodes/SmilesToAtoms/atoms.h5
+    - nodes/SmilesToAtoms/molecule.png
+    params:
+    - Packmol
+    outs:
+    - nodes/Packmol/atoms.h5
+    - nodes/Packmol/packmol
+  CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
+    deps:
+    - GTH_BASIS_SETS
+    - GTH_POTENTIALS
+    - dftd3.dat
+    - nodes/Packmol/atoms.h5
+    - nodes/Packmol/packmol
+    params:
+    - cp2k.yaml:
+    outs:
+    - nodes/CP2KSinglePoint/atoms.h5
+    - nodes/CP2KSinglePoint/cp2k
+  H2O-x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O-x10
+    deps:
+    - nodes/CP2KSinglePoint/atoms.h5
+    - nodes/CP2KSinglePoint/cp2k
+    - nodes/Packmol/atoms.h5
+    - nodes/Packmol/packmol
+    params:
+    - H2O-x10
+    outs:
+    - nodes/H2O-x10/model_outs
+    - nodes/H2O-x10/optim.traj

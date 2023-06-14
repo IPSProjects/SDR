@@ -1,0 +1,165 @@
+schema: '2.0'
+stages:
+  SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms
+    params:
+      params.yaml:
+        SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: O
+    outs:
+    - path: nodes/SmilesToAtoms/atoms.h5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/SmilesToAtoms/molecule.png
+      md5: 93a6639d8eaa7c8e62c8481e996c8d06
+      size: 2795
+  Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
+    deps:
+    - path: nodes/SmilesToAtoms/atoms.h5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/SmilesToAtoms/molecule.png
+      md5: 93a6639d8eaa7c8e62c8481e996c8d06
+      size: 2795
+    params:
+      params.yaml:
+        Packmol:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 997
+          tolerance: 2.0
+    outs:
+    - path: nodes/Packmol/atoms.h5
+      md5: 963c575495ab9f1e1853d9704baf3543
+      size: 27968
+    - path: nodes/Packmol/packmol
+      md5: 222a03a391988ec4235c4a3f68554653.dir
+      size: 2192
+      nfiles: 3
+  CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
+    deps:
+    - path: GTH_BASIS_SETS
+      md5: 518e733a7344699cf0b4192bb97eb6a3
+      size: 119403
+    - path: GTH_POTENTIALS
+      md5: 3a35b03b26b8ba5cf6c1d849dba11f15
+      size: 128982
+    - path: dftd3.dat
+      md5: 88745bcc951a4bcdccc4d6bcfa78d105
+      size: 1959318
+    - path: nodes/Packmol/atoms.h5
+      md5: 963c575495ab9f1e1853d9704baf3543
+      size: 27968
+    - path: nodes/Packmol/packmol
+      md5: 222a03a391988ec4235c4a3f68554653.dir
+      size: 2192
+      nfiles: 3
+    params:
+      cp2k.yaml:
+        force_eval:
+          method: quickstep
+          DFT:
+            mgrid:
+              cutoff: 1800.0
+              rel_cutoff: 120.0
+              ngrids: 5
+            QS:
+              eps_filter_matrix: 0.0
+              eps_pgf_orb: 0.0001
+            SCF:
+              scf_guess: restart
+              max_scf: 100
+              eps_scf: 1e-06
+              OT:
+                minimizer: diis
+                preconditioner: full_single_inverse
+              outer_scf:
+                max_scf: 100
+                eps_scf: 1e-06
+              print:
+                restart:
+                  each:
+                    QS_SCF: 0
+            XC:
+              xc_functional:
+                becke97:
+                  scale_c: 1.0
+                  scale_x: 1.0
+              vdw_potential:
+                pair_potential:
+                  type: DFTD3
+                  parameter_file_name: dftd3.dat
+                  reference_functional: PBE
+                  r_cutoff: 16
+                potential_type: pair_potential
+            print:
+              moments:
+                _: ON
+              hirshfeld:
+                _: ON
+            charge: 0
+            basis_set_file_name: GTH_BASIS_SETS
+            potential_file_name: GTH_POTENTIALS
+          subsys:
+            kind:
+              O:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              C:
+                basis_set: TZVP-GTH-q4
+                potential: GTH-PBE-q4
+              H:
+                basis_set: TZVP-GTH-q1
+                potential: GTH-PBE-q1
+    outs:
+    - path: nodes/CP2KSinglePoint/atoms.h5
+      md5: 7467fd028da9ecb8bd4cf2baf99a2ae1
+      size: 40648
+    - path: nodes/CP2KSinglePoint/cp2k
+      md5: d4ad96d6ba4c6bd6a6f03f3b7491392a.dir
+      size: 177240
+      nfiles: 3
+  H2O-x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O-x10
+    deps:
+    - path: nodes/CP2KSinglePoint/atoms.h5
+      md5: 7467fd028da9ecb8bd4cf2baf99a2ae1
+      size: 40648
+    - path: nodes/CP2KSinglePoint/cp2k
+      md5: d4ad96d6ba4c6bd6a6f03f3b7491392a.dir
+      size: 177240
+      nfiles: 3
+    - path: nodes/Packmol/atoms.h5
+      md5: 963c575495ab9f1e1853d9704baf3543
+      size: 27968
+    - path: nodes/Packmol/packmol
+      md5: 222a03a391988ec4235c4a3f68554653.dir
+      size: 2192
+      nfiles: 3
+    params:
+      params.yaml:
+        H2O-x10:
+          data_id: 0
+          init_kwargs: {}
+          optimizer: BFGS
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.1
+    outs:
+    - path: nodes/H2O-x10/model_outs
+      md5: a1133a504df8710afaea3d7f51853e9e.dir
+      size: 1460133
+      nfiles: 7
+    - path: nodes/H2O-x10/optim.traj
+      md5: 613cdffa9d2b7da9aa72e9fb145f1f67
+      size: 382007
