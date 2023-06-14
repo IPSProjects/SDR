@@ -8,23 +8,23 @@ stages:
           cell:
           optimizer: UFF
           seed: 1234
-          smiles: O
+          smiles: CCO
     outs:
     - path: nodes/SmilesToAtoms/atoms.h5
-      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      md5: 808938543a3b7080b87b90c152e1fcf3
       size: 27968
     - path: nodes/SmilesToAtoms/molecule.png
-      md5: 93a6639d8eaa7c8e62c8481e996c8d06
-      size: 2795
+      md5: 5d6fda4c829f9e52847751de0833a133
+      size: 4569
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
     - path: nodes/SmilesToAtoms/atoms.h5
-      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      md5: 808938543a3b7080b87b90c152e1fcf3
       size: 27968
     - path: nodes/SmilesToAtoms/molecule.png
-      md5: 93a6639d8eaa7c8e62c8481e996c8d06
-      size: 2795
+      md5: 5d6fda4c829f9e52847751de0833a133
+      size: 4569
     params:
       params.yaml:
         Packmol:
@@ -32,15 +32,15 @@ stages:
           count:
           - 10
           data_ids:
-          density: 997
+          density: 789
           tolerance: 2.0
     outs:
     - path: nodes/Packmol/atoms.h5
-      md5: 963c575495ab9f1e1853d9704baf3543
-      size: 27968
+      md5: f2fff71dd556172bfbf78869fb7366b6
+      size: 30128
     - path: nodes/Packmol/packmol
-      md5: 222a03a391988ec4235c4a3f68554653.dir
-      size: 2192
+      md5: 6ff1f2df62facf65ed7ae9c1fcedb91a.dir
+      size: 5876
       nfiles: 3
   CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
@@ -55,11 +55,11 @@ stages:
       md5: 88745bcc951a4bcdccc4d6bcfa78d105
       size: 1959318
     - path: nodes/Packmol/atoms.h5
-      md5: 963c575495ab9f1e1853d9704baf3543
-      size: 27968
+      md5: f2fff71dd556172bfbf78869fb7366b6
+      size: 30128
     - path: nodes/Packmol/packmol
-      md5: 222a03a391988ec4235c4a3f68554653.dir
-      size: 2192
+      md5: 6ff1f2df62facf65ed7ae9c1fcedb91a.dir
+      size: 5876
       nfiles: 3
     params:
       cp2k.yaml:
@@ -120,32 +120,32 @@ stages:
                 potential: GTH-PBE-q1
     outs:
     - path: nodes/CP2KSinglePoint/atoms.h5
-      md5: 7467fd028da9ecb8bd4cf2baf99a2ae1
-      size: 40648
+      md5: 4478254ef8c1ccff336c3518f3ca9951
+      size: 44968
     - path: nodes/CP2KSinglePoint/cp2k
-      md5: d4ad96d6ba4c6bd6a6f03f3b7491392a.dir
-      size: 177240
+      md5: 5563a4a62a0c0d5f8582b43c3f95cb70.dir
+      size: 814316
       nfiles: 3
-  H2O-x10:
-    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O-x10
+  EtOH-x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EtOH-x10
     deps:
     - path: nodes/CP2KSinglePoint/atoms.h5
-      md5: 7467fd028da9ecb8bd4cf2baf99a2ae1
-      size: 40648
+      md5: 4478254ef8c1ccff336c3518f3ca9951
+      size: 44968
     - path: nodes/CP2KSinglePoint/cp2k
-      md5: d4ad96d6ba4c6bd6a6f03f3b7491392a.dir
-      size: 177240
+      md5: 5563a4a62a0c0d5f8582b43c3f95cb70.dir
+      size: 814316
       nfiles: 3
     - path: nodes/Packmol/atoms.h5
-      md5: 963c575495ab9f1e1853d9704baf3543
-      size: 27968
+      md5: f2fff71dd556172bfbf78869fb7366b6
+      size: 30128
     - path: nodes/Packmol/packmol
-      md5: 222a03a391988ec4235c4a3f68554653.dir
-      size: 2192
+      md5: 6ff1f2df62facf65ed7ae9c1fcedb91a.dir
+      size: 5876
       nfiles: 3
     params:
       params.yaml:
-        H2O-x10:
+        EtOH-x10:
           data_id: 0
           init_kwargs: {}
           optimizer: BFGS
@@ -156,10 +156,10 @@ stages:
           run_kwargs:
             fmax: 0.1
     outs:
-    - path: nodes/H2O-x10/model_outs
-      md5: a1133a504df8710afaea3d7f51853e9e.dir
-      size: 1460133
+    - path: nodes/EtOH-x10/model_outs
+      md5: 8c67a57b738d61d690519f96d9fcd1d4.dir
+      size: 5364241
       nfiles: 7
-    - path: nodes/H2O-x10/optim.traj
-      md5: 613cdffa9d2b7da9aa72e9fb145f1f67
-      size: 382007
+    - path: nodes/EtOH-x10/optim.traj
+      md5: 49965668d8afaba966bde94a8c5173ad
+      size: 855042

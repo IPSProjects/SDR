@@ -1,4 +1,4 @@
-H2O-x10:
+EtOH-x10:
     data_id: 0
     init_kwargs: {}
     optimizer: BFGS
@@ -13,10 +13,10 @@ Packmol:
     count:
     - 10
     data_ids: null
-    density: 997
+    density: 789
     tolerance: 2.0
 SmilesToAtoms:
     cell: null
     optimizer: UFF
     seed: 1234
-    smiles: O
+    smiles: CCO
