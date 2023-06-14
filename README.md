@@ -1,6 +1,14 @@
 # Structure Database Repository
 
-This repository contains simulation data that can be loaded via [ZnTrack](https://zntrack.readthedocs.io)
+This repository contains simulation data that can be loaded via [ZnTrack](https://zntrack.readthedocs.io).
+In addition to [ZnTrack](https://zntrack.readthedocs.io) an [IPSuite](https://github.com/zincware/IPSuite) installation and [DVC-S3](https://dvc.org/doc/command-reference/remote/add) support are also required.
+
+```bash
+pip install ipsuite zntrack dvc[s3]
+```
+
+The following example provides a list of [ase.Atoms](https://wiki.fysik.dtu.dk/ase/ase/atoms.html) that were generated during geometry optimization of water using [CP2K](https://www.cp2k.org/).
+For more information have a look at the branch: https://github.com/IPSProjects/SDR/tree/water
 
 ```python
 import zntrack
