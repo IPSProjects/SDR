@@ -1,0 +1,55 @@
+force_eval:
+  method: quickstep
+  DFT:
+    mgrid:
+      cutoff: 1800.0
+      rel_cutoff: 120.0
+      ngrids: 5
+    QS:
+      eps_filter_matrix: 0.0
+      eps_pgf_orb: 0.0001
+    SCF:
+      scf_guess: restart
+      max_scf: 100
+      eps_scf: 1e-06
+      OT:
+        minimizer: diis
+        preconditioner: full_single_inverse
+      outer_scf:
+        max_scf: 100
+        eps_scf: 1e-06
+      print:
+        restart:
+          each:
+            QS_SCF: 0
+    XC:
+      xc_functional:
+        becke97:
+          scale_c: 1.0
+          scale_x: 1.0
+      vdw_potential:
+        pair_potential:
+          type: DFTD3
+          parameter_file_name: dftd3.dat
+          reference_functional: PBE
+          r_cutoff: 16
+        potential_type: pair_potential
+    print:
+      moments:
+        _: "ON"
+      hirshfeld:
+        _: "ON"
+    charge: 0
+    basis_set_file_name: GTH_BASIS_SETS
+    potential_file_name: GTH_POTENTIALS
+  subsys:
+    kind:
+      O:
+        basis_set: TZVP-GTH-q6
+        potential: GTH-PBE-q6
+      C:
+        basis_set: TZVP-GTH-q4
+        potential: GTH-PBE-q4
+      H:
+        basis_set: TZVP-GTH-q1
+        potential: GTH-PBE-q1
