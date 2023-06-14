@@ -1,3 +1,7 @@
+[![DagsHub](https://bit.ly/33Q1Dv9)](https://dagshub.com/PythonFZ/SDR)
+[![ZnTrack](https://img.shields.io/badge/Powered%20by-ZnTrack-%23007CB0)](https://zntrack.readthedocs.io/en/latest/)
+[![zincware](https://img.shields.io/badge/Powered%20by-zincware-darkcyan)](https://github.com/zincware)
+
 # Structure Database Repository
 
 This repository contains simulation data that can be loaded via [ZnTrack](https://zntrack.readthedocs.io).
