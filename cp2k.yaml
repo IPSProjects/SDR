@@ -29,10 +29,12 @@ force_eval:
           scale_x: 1.0
       vdw_potential:
         pair_potential:
-          type: DFTD3
+          type: dftd3(bj)
           parameter_file_name: dftd3.dat
-          reference_functional: PBE
-          r_cutoff: 16
+          reference_functional: B97-3c
+          r_cutoff: 7.93766
+          calculate_c9_term: true
+          short_range_correction: true
         potential_type: pair_potential
     print:
       moments:
@@ -44,12 +46,18 @@ force_eval:
     potential_file_name: GTH_POTENTIALS
   subsys:
     kind:
-      O:
-        basis_set: TZVP-GTH-q6
-        potential: GTH-PBE-q6
+      N:
+        basis_set: TZVP-GTH-q5
+        potential: GTH-PBE-q5
       C:
         basis_set: TZVP-GTH-q4
         potential: GTH-PBE-q4
       H:
         basis_set: TZVP-GTH-q1
         potential: GTH-PBE-q1
+      B:
+        basis_set: TZVP-GTH-q3
+        potential: GTH-PBE-q3
+      F:
+        basis_set: TZVP-GTH-q7
+        potential: GTH-PBE-q7

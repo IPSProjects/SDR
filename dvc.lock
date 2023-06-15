@@ -8,39 +8,89 @@ stages:
           cell:
           optimizer: UFF
           seed: 1234
-          smiles: CC(=O)C
+          smiles: CCCCN1C=C[N+](=C1)C
     outs:
     - path: nodes/SmilesToAtoms/atoms.h5
-      md5: 6363587e70bd0f98fce9bc6f07ef32ce
+      md5: 744f94e60270ed284980820ff3038f19
       size: 27968
     - path: nodes/SmilesToAtoms/molecule.png
-      md5: 1f1c3b414f0b504c22b538d375428e22
-      size: 4556
+      md5: f7018ebeb9f321e41d1e4ddc54722888
+      size: 7734
+  SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms_1
+    params:
+      params.yaml:
+        SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: '[B-](F)(F)(F)F'
+    outs:
+    - path: nodes/SmilesToAtoms_1/atoms.h5
+      md5: 181a42114d5c08d6ac24e8ce30a8f82b
+      size: 27968
+    - path: nodes/SmilesToAtoms_1/molecule.png
+      md5: 32d2295f23e1edb9a0f841fbd2931792
+      size: 2963
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
     - path: nodes/SmilesToAtoms/atoms.h5
-      md5: 6363587e70bd0f98fce9bc6f07ef32ce
+      md5: 744f94e60270ed284980820ff3038f19
       size: 27968
     - path: nodes/SmilesToAtoms/molecule.png
-      md5: 1f1c3b414f0b504c22b538d375428e22
-      size: 4556
+      md5: f7018ebeb9f321e41d1e4ddc54722888
+      size: 7734
+    - path: nodes/SmilesToAtoms_1/atoms.h5
+      md5: 181a42114d5c08d6ac24e8ce30a8f82b
+      size: 27968
+    - path: nodes/SmilesToAtoms_1/molecule.png
+      md5: 32d2295f23e1edb9a0f841fbd2931792
+      size: 2963
     params:
       params.yaml:
         Packmol:
           box:
           count:
-          - 10
+          - 1
+          - 1
           data_ids:
-          density: 784
+          density: 1210
           tolerance: 2.0
     outs:
     - path: nodes/Packmol/atoms.h5
-      md5: 7e7f8106794016e0f1d33079e6e03dba
-      size: 30368
+      md5: c32f2190bc1f40d5bb4587a7b4741bea
+      size: 27968
     - path: nodes/Packmol/packmol
-      md5: 99adfe99736979827572d145fa0bc290.dir
-      size: 6494
+      md5: 9211f580932fa95a1d122b0e2be6699c.dir
+      size: 3841
+      nfiles: 4
+  Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol_1
+    deps:
+    - path: nodes/Packmol/atoms.h5
+      md5: c32f2190bc1f40d5bb4587a7b4741bea
+      size: 27968
+    - path: nodes/Packmol/packmol
+      md5: 9211f580932fa95a1d122b0e2be6699c.dir
+      size: 3841
+      nfiles: 4
+    params:
+      params.yaml:
+        Packmol_1:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 1210
+          tolerance: 2.0
+    outs:
+    - path: nodes/Packmol_1/atoms.h5
+      md5: 004fbeec002d78da2d14ecd32a86e97f
+      size: 37568
+    - path: nodes/Packmol_1/packmol
+      md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
+      size: 18862
       nfiles: 3
   CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
@@ -54,12 +104,12 @@ stages:
     - path: dftd3.dat
       md5: 88745bcc951a4bcdccc4d6bcfa78d105
       size: 1959318
-    - path: nodes/Packmol/atoms.h5
-      md5: 7e7f8106794016e0f1d33079e6e03dba
-      size: 30368
-    - path: nodes/Packmol/packmol
-      md5: 99adfe99736979827572d145fa0bc290.dir
-      size: 6494
+    - path: nodes/Packmol_1/atoms.h5
+      md5: 004fbeec002d78da2d14ecd32a86e97f
+      size: 37568
+    - path: nodes/Packmol_1/packmol
+      md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
+      size: 18862
       nfiles: 3
     params:
       cp2k.yaml:
@@ -94,10 +144,12 @@ stages:
                   scale_x: 1.0
               vdw_potential:
                 pair_potential:
-                  type: DFTD3
+                  type: dftd3(bj)
                   parameter_file_name: dftd3.dat
-                  reference_functional: PBE
-                  r_cutoff: 16
+                  reference_functional: B97-3c
+                  r_cutoff: 7.93766
+                  calculate_c9_term: true
+                  short_range_correction: true
                 potential_type: pair_potential
             print:
               moments:
@@ -109,43 +161,49 @@ stages:
             potential_file_name: GTH_POTENTIALS
           subsys:
             kind:
-              O:
-                basis_set: TZVP-GTH-q6
-                potential: GTH-PBE-q6
+              N:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
               C:
                 basis_set: TZVP-GTH-q4
                 potential: GTH-PBE-q4
               H:
                 basis_set: TZVP-GTH-q1
                 potential: GTH-PBE-q1
+              B:
+                basis_set: TZVP-GTH-q3
+                potential: GTH-PBE-q3
+              F:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
     outs:
     - path: nodes/CP2KSinglePoint/atoms.h5
-      md5: c468b727502c678213cb448374fb983f
-      size: 45448
+      md5: e16aa04b895ab726829e6709d0e72939
+      size: 57448
     - path: nodes/CP2KSinglePoint/cp2k
-      md5: 37484be04b43d9e90a94745b1505ca1e.dir
-      size: 1113815
+      md5: f7497b78caefdfd2d5183141b9bf0503.dir
+      size: 12394676
       nfiles: 3
-  Acetone-x10:
-    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name Acetone-x10
+  BMIM_BF4-x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4-x10
     deps:
     - path: nodes/CP2KSinglePoint/atoms.h5
-      md5: c468b727502c678213cb448374fb983f
-      size: 45448
+      md5: e16aa04b895ab726829e6709d0e72939
+      size: 57448
     - path: nodes/CP2KSinglePoint/cp2k
-      md5: 37484be04b43d9e90a94745b1505ca1e.dir
-      size: 1113815
+      md5: f7497b78caefdfd2d5183141b9bf0503.dir
+      size: 12394676
       nfiles: 3
-    - path: nodes/Packmol/atoms.h5
-      md5: 7e7f8106794016e0f1d33079e6e03dba
-      size: 30368
-    - path: nodes/Packmol/packmol
-      md5: 99adfe99736979827572d145fa0bc290.dir
-      size: 6494
+    - path: nodes/Packmol_1/atoms.h5
+      md5: 004fbeec002d78da2d14ecd32a86e97f
+      size: 37568
+    - path: nodes/Packmol_1/packmol
+      md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
+      size: 18862
       nfiles: 3
     params:
       params.yaml:
-        Acetone-x10:
+        BMIM_BF4-x10:
           data_id: 0
           init_kwargs: {}
           optimizer: BFGS
@@ -156,10 +214,10 @@ stages:
           run_kwargs:
             fmax: 0.1
     outs:
-    - path: nodes/Acetone-x10/model_outs
-      md5: 3d04aaffa0ead05cfe26623495e03699.dir
-      size: 6060360
+    - path: nodes/BMIM_BF4-x10/model_outs
+      md5: 64154b0e8b723e2012f919ef5b20d512.dir
+      size: 59250627
       nfiles: 7
-    - path: nodes/Acetone-x10/optim.traj
-      md5: 6aac4e519318a3e50be68f1341278136
-      size: 673379
+    - path: nodes/BMIM_BF4-x10/optim.traj
+      md5: 21add6dbd140c480016df963f518db08
+      size: 3354545

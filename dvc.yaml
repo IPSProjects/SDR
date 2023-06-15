@@ -6,38 +6,57 @@ stages:
     outs:
     - nodes/SmilesToAtoms/atoms.h5
     - nodes/SmilesToAtoms/molecule.png
+  SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms_1
+    params:
+    - SmilesToAtoms_1
+    outs:
+    - nodes/SmilesToAtoms_1/atoms.h5
+    - nodes/SmilesToAtoms_1/molecule.png
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
     - nodes/SmilesToAtoms/atoms.h5
     - nodes/SmilesToAtoms/molecule.png
+    - nodes/SmilesToAtoms_1/atoms.h5
+    - nodes/SmilesToAtoms_1/molecule.png
     params:
     - Packmol
     outs:
     - nodes/Packmol/atoms.h5
     - nodes/Packmol/packmol
+  Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol_1
+    deps:
+    - nodes/Packmol/atoms.h5
+    - nodes/Packmol/packmol
+    params:
+    - Packmol_1
+    outs:
+    - nodes/Packmol_1/atoms.h5
+    - nodes/Packmol_1/packmol
   CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
     deps:
     - GTH_BASIS_SETS
     - GTH_POTENTIALS
     - dftd3.dat
-    - nodes/Packmol/atoms.h5
-    - nodes/Packmol/packmol
+    - nodes/Packmol_1/atoms.h5
+    - nodes/Packmol_1/packmol
     params:
     - cp2k.yaml:
     outs:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
-  Acetone-x10:
-    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name Acetone-x10
+  BMIM_BF4-x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4-x10
     deps:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
-    - nodes/Packmol/atoms.h5
-    - nodes/Packmol/packmol
+    - nodes/Packmol_1/atoms.h5
+    - nodes/Packmol_1/packmol
     params:
-    - Acetone-x10
+    - BMIM_BF4-x10
     outs:
-    - nodes/Acetone-x10/model_outs
-    - nodes/Acetone-x10/optim.traj
+    - nodes/BMIM_BF4-x10/model_outs
+    - nodes/BMIM_BF4-x10/optim.traj

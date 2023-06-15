@@ -5,6 +5,12 @@
             "value": "$nwd$/molecule.png"
         }
     },
+    "SmilesToAtoms_1": {
+        "image": {
+            "_type": "pathlib.Path",
+            "value": "$nwd$/molecule.png"
+        }
+    },
     "Packmol": {
         "data": [
             {
@@ -16,6 +22,48 @@
                             "module": "ipsuite.nodes",
                             "cls": "SmilesToAtoms",
                             "name": "SmilesToAtoms",
+                            "remote": null,
+                            "rev": null
+                        }
+                    },
+                    "attribute": "atoms",
+                    "item": null
+                }
+            },
+            {
+                "_type": "znflow.Connection",
+                "value": {
+                    "instance": {
+                        "_type": "zntrack.Node",
+                        "value": {
+                            "module": "ipsuite.nodes",
+                            "cls": "SmilesToAtoms",
+                            "name": "SmilesToAtoms_1",
+                            "remote": null,
+                            "rev": null
+                        }
+                    },
+                    "attribute": "atoms",
+                    "item": null
+                }
+            }
+        ],
+        "structures": {
+            "_type": "pathlib.Path",
+            "value": "$nwd$/packmol"
+        }
+    },
+    "Packmol_1": {
+        "data": [
+            {
+                "_type": "znflow.Connection",
+                "value": {
+                    "instance": {
+                        "_type": "zntrack.Node",
+                        "value": {
+                            "module": "ipsuite.nodes",
+                            "cls": "Packmol",
+                            "name": "Packmol",
                             "remote": null,
                             "rev": null
                         }
@@ -50,7 +98,7 @@
                     "value": {
                         "module": "ipsuite.nodes",
                         "cls": "Packmol",
-                        "name": "Packmol",
+                        "name": "Packmol_1",
                         "remote": null,
                         "rev": null
                     }
@@ -67,7 +115,7 @@
         "wfn_restart_file": null,
         "wfn_restart_node": null
     },
-    "Acetone-x10": {
+    "BMIM_BF4-x10": {
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -76,7 +124,7 @@
                     "value": {
                         "module": "ipsuite.nodes",
                         "cls": "Packmol",
-                        "name": "Packmol",
+                        "name": "Packmol_1",
                         "remote": null,
                         "rev": null
                     }
