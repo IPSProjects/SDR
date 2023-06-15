@@ -1,11 +1,11 @@
 {
-    "SmilesToAtoms": {
+    "EMC_SmilesToAtoms": {
         "image": {
             "_type": "pathlib.Path",
             "value": "$nwd$/molecule.png"
         }
     },
-    "Packmol": {
+    "EMC_Packmol": {
         "data": [
             {
                 "_type": "znflow.Connection",
@@ -15,7 +15,7 @@
                         "value": {
                             "module": "ipsuite.nodes",
                             "cls": "SmilesToAtoms",
-                            "name": "SmilesToAtoms",
+                            "name": "EMC_SmilesToAtoms",
                             "remote": null,
                             "rev": null
                         }
@@ -30,7 +30,7 @@
             "value": "$nwd$/packmol"
         }
     },
-    "CP2KSinglePoint": {
+    "EMC_CP2KSinglePoint": {
         "cp2k_directory": {
             "_type": "pathlib.Path",
             "value": "$nwd$/cp2k"
@@ -50,7 +50,7 @@
                     "value": {
                         "module": "ipsuite.nodes",
                         "cls": "Packmol",
-                        "name": "Packmol",
+                        "name": "EMC_Packmol",
                         "remote": null,
                         "rev": null
                     }
@@ -67,7 +67,7 @@
         "wfn_restart_file": null,
         "wfn_restart_node": null
     },
-    "MeOH-x10": {
+    "EMC_x10": {
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -76,7 +76,7 @@
                     "value": {
                         "module": "ipsuite.nodes",
                         "cls": "Packmol",
-                        "name": "Packmol",
+                        "name": "EMC_Packmol",
                         "remote": null,
                         "rev": null
                     }
@@ -94,7 +94,7 @@
                     "value": {
                         "module": "ipsuite.nodes",
                         "cls": "CP2KSinglePoint",
-                        "name": "CP2KSinglePoint",
+                        "name": "EMC_CP2KSinglePoint",
                         "remote": null,
                         "rev": null
                     }

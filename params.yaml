@@ -1,4 +1,16 @@
-MeOH-x10:
+EMC_Packmol:
+    box: null
+    count:
+    - 10
+    data_ids: null
+    density: 1010
+    tolerance: 2.0
+EMC_SmilesToAtoms:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: CCOC(=O)OC
+EMC_x10:
     data_id: 0
     init_kwargs: {}
     optimizer: BFGS
@@ -8,15 +20,3 @@ MeOH-x10:
     - 1
     run_kwargs:
         fmax: 0.1
-Packmol:
-    box: null
-    count:
-    - 10
-    data_ids: null
-    density: 792
-    tolerance: 2.0
-SmilesToAtoms:
-    cell: null
-    optimizer: UFF
-    seed: 1234
-    smiles: CO

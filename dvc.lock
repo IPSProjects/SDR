@@ -1,49 +1,49 @@
 schema: '2.0'
 stages:
-  SmilesToAtoms:
-    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms
+  EMC_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name EMC_SmilesToAtoms
     params:
       params.yaml:
-        SmilesToAtoms:
+        EMC_SmilesToAtoms:
           cell:
           optimizer: UFF
           seed: 1234
-          smiles: CO
+          smiles: CCOC(=O)OC
     outs:
-    - path: nodes/SmilesToAtoms/atoms.h5
-      md5: 5b1ac390c15e63c4b6e1160f74a3b751
+    - path: nodes/EMC_SmilesToAtoms/atoms.h5
+      md5: 1222b93b038d25b6996cc92a3d83f42c
       size: 27968
-    - path: nodes/SmilesToAtoms/molecule.png
-      md5: 73ecc6c1c0a0759a2ec38d6fbc36c025
-      size: 2512
-  Packmol:
-    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
+    - path: nodes/EMC_SmilesToAtoms/molecule.png
+      md5: 725e5d6d809c824e3d64a282dc120847
+      size: 6238
+  EMC_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name EMC_Packmol
     deps:
-    - path: nodes/SmilesToAtoms/atoms.h5
-      md5: 5b1ac390c15e63c4b6e1160f74a3b751
+    - path: nodes/EMC_SmilesToAtoms/atoms.h5
+      md5: 1222b93b038d25b6996cc92a3d83f42c
       size: 27968
-    - path: nodes/SmilesToAtoms/molecule.png
-      md5: 73ecc6c1c0a0759a2ec38d6fbc36c025
-      size: 2512
+    - path: nodes/EMC_SmilesToAtoms/molecule.png
+      md5: 725e5d6d809c824e3d64a282dc120847
+      size: 6238
     params:
       params.yaml:
-        Packmol:
+        EMC_Packmol:
           box:
           count:
           - 10
           data_ids:
-          density: 792
+          density: 1010
           tolerance: 2.0
     outs:
-    - path: nodes/Packmol/atoms.h5
-      md5: 1867c1d6f9859921b1c0d67960912051
-      size: 30016
-    - path: nodes/Packmol/packmol
-      md5: 27b9e5a5d410eb8ee38e0ec54e261680.dir
-      size: 4034
+    - path: nodes/EMC_Packmol/atoms.h5
+      md5: bd634280c478341e779a1ae17c222c5d
+      size: 31568
+    - path: nodes/EMC_Packmol/packmol
+      md5: be2f5a6108f90e036ee9f94c6ad28357.dir
+      size: 9564
       nfiles: 3
-  CP2KSinglePoint:
-    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
+  EMC_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name EMC_CP2KSinglePoint
     deps:
     - path: GTH_BASIS_SETS
       md5: 518e733a7344699cf0b4192bb97eb6a3
@@ -54,12 +54,12 @@ stages:
     - path: dftd3.dat
       md5: 88745bcc951a4bcdccc4d6bcfa78d105
       size: 1959318
-    - path: nodes/Packmol/atoms.h5
-      md5: 1867c1d6f9859921b1c0d67960912051
-      size: 30016
-    - path: nodes/Packmol/packmol
-      md5: 27b9e5a5d410eb8ee38e0ec54e261680.dir
-      size: 4034
+    - path: nodes/EMC_Packmol/atoms.h5
+      md5: bd634280c478341e779a1ae17c222c5d
+      size: 31568
+    - path: nodes/EMC_Packmol/packmol
+      md5: be2f5a6108f90e036ee9f94c6ad28357.dir
+      size: 9564
       nfiles: 3
     params:
       cp2k.yaml:
@@ -119,33 +119,33 @@ stages:
                 basis_set: TZVP-GTH-q1
                 potential: GTH-PBE-q1
     outs:
-    - path: nodes/CP2KSinglePoint/atoms.h5
-      md5: 111b296c3f1b2c6dc5b72665c2897d76
-      size: 42696
-    - path: nodes/CP2KSinglePoint/cp2k
-      md5: 0c2e2444bbe3bda7f6ba48223f62d6a5.dir
-      size: 425424
+    - path: nodes/EMC_CP2KSinglePoint/atoms.h5
+      md5: 95a30cc1ceb2b9337b6a1ab219ea54f9
+      size: 47848
+    - path: nodes/EMC_CP2KSinglePoint/cp2k
+      md5: 4e2472e376eaf2adef7232a7f172ca06.dir
+      size: 2943429
       nfiles: 3
-  MeOH-x10:
-    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name MeOH-x10
+  EMC_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EMC_x10
     deps:
-    - path: nodes/CP2KSinglePoint/atoms.h5
-      md5: 111b296c3f1b2c6dc5b72665c2897d76
-      size: 42696
-    - path: nodes/CP2KSinglePoint/cp2k
-      md5: 0c2e2444bbe3bda7f6ba48223f62d6a5.dir
-      size: 425424
+    - path: nodes/EMC_CP2KSinglePoint/atoms.h5
+      md5: 95a30cc1ceb2b9337b6a1ab219ea54f9
+      size: 47848
+    - path: nodes/EMC_CP2KSinglePoint/cp2k
+      md5: 4e2472e376eaf2adef7232a7f172ca06.dir
+      size: 2943429
       nfiles: 3
-    - path: nodes/Packmol/atoms.h5
-      md5: 1867c1d6f9859921b1c0d67960912051
-      size: 30016
-    - path: nodes/Packmol/packmol
-      md5: 27b9e5a5d410eb8ee38e0ec54e261680.dir
-      size: 4034
+    - path: nodes/EMC_Packmol/atoms.h5
+      md5: bd634280c478341e779a1ae17c222c5d
+      size: 31568
+    - path: nodes/EMC_Packmol/packmol
+      md5: be2f5a6108f90e036ee9f94c6ad28357.dir
+      size: 9564
       nfiles: 3
     params:
       params.yaml:
-        MeOH-x10:
+        EMC_x10:
           data_id: 0
           init_kwargs: {}
           optimizer: BFGS
@@ -156,10 +156,10 @@ stages:
           run_kwargs:
             fmax: 0.1
     outs:
-    - path: nodes/MeOH-x10/model_outs
-      md5: 65a27558bfbe0313e961fedb935f1f0c.dir
-      size: 3929326
+    - path: nodes/EMC_x10/model_outs
+      md5: 696bed0cd36ca4fe2d651eb0b5fba4ce.dir
+      size: 15039721
       nfiles: 7
-    - path: nodes/MeOH-x10/optim.traj
-      md5: 4ab0799e56507157f65f02b18020675f
-      size: 904424
+    - path: nodes/EMC_x10/optim.traj
+      md5: 8fc674bf2192af45311257876d4efb00
+      size: 1226136
