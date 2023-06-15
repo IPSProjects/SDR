@@ -1,17 +1,17 @@
 {
-    "SmilesToAtoms": {
+    "BMIM_BF4_SmilesToAtoms": {
         "image": {
             "_type": "pathlib.Path",
             "value": "$nwd$/molecule.png"
         }
     },
-    "SmilesToAtoms_1": {
+    "BMIM_BF4_SmilesToAtoms_1": {
         "image": {
             "_type": "pathlib.Path",
             "value": "$nwd$/molecule.png"
         }
     },
-    "Packmol": {
+    "BMIM_BF4_Packmol": {
         "data": [
             {
                 "_type": "znflow.Connection",
@@ -21,7 +21,7 @@
                         "value": {
                             "module": "ipsuite.nodes",
                             "cls": "SmilesToAtoms",
-                            "name": "SmilesToAtoms",
+                            "name": "BMIM_BF4_SmilesToAtoms",
                             "remote": null,
                             "rev": null
                         }
@@ -38,7 +38,7 @@
                         "value": {
                             "module": "ipsuite.nodes",
                             "cls": "SmilesToAtoms",
-                            "name": "SmilesToAtoms_1",
+                            "name": "BMIM_BF4_SmilesToAtoms_1",
                             "remote": null,
                             "rev": null
                         }
@@ -53,7 +53,7 @@
             "value": "$nwd$/packmol"
         }
     },
-    "Packmol_1": {
+    "BMIM_BF4_Packmol_1": {
         "data": [
             {
                 "_type": "znflow.Connection",
@@ -63,7 +63,7 @@
                         "value": {
                             "module": "ipsuite.nodes",
                             "cls": "Packmol",
-                            "name": "Packmol",
+                            "name": "BMIM_BF4_Packmol",
                             "remote": null,
                             "rev": null
                         }
@@ -78,7 +78,7 @@
             "value": "$nwd$/packmol"
         }
     },
-    "CP2KSinglePoint": {
+    "BMIM_BF4_CP2KSinglePoint": {
         "cp2k_directory": {
             "_type": "pathlib.Path",
             "value": "$nwd$/cp2k"
@@ -98,7 +98,7 @@
                     "value": {
                         "module": "ipsuite.nodes",
                         "cls": "Packmol",
-                        "name": "Packmol_1",
+                        "name": "BMIM_BF4_Packmol_1",
                         "remote": null,
                         "rev": null
                     }
@@ -115,7 +115,7 @@
         "wfn_restart_file": null,
         "wfn_restart_node": null
     },
-    "BMIM_BF4-x10": {
+    "BMIM_BF4_x10": {
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -124,7 +124,7 @@
                     "value": {
                         "module": "ipsuite.nodes",
                         "cls": "Packmol",
-                        "name": "Packmol_1",
+                        "name": "BMIM_BF4_Packmol_1",
                         "remote": null,
                         "rev": null
                     }
@@ -142,7 +142,7 @@
                     "value": {
                         "module": "ipsuite.nodes",
                         "cls": "CP2KSinglePoint",
-                        "name": "CP2KSinglePoint",
+                        "name": "BMIM_BF4_CP2KSinglePoint",
                         "remote": null,
                         "rev": null
                     }

@@ -1,62 +1,62 @@
 stages:
-  SmilesToAtoms:
-    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms
+  BMIM_BF4_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms
     params:
-    - SmilesToAtoms
+    - BMIM_BF4_SmilesToAtoms
     outs:
-    - nodes/SmilesToAtoms/atoms.h5
-    - nodes/SmilesToAtoms/molecule.png
-  SmilesToAtoms_1:
-    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms_1
+    - nodes/BMIM_BF4_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_BF4_SmilesToAtoms/molecule.png
+  BMIM_BF4_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms_1
     params:
-    - SmilesToAtoms_1
+    - BMIM_BF4_SmilesToAtoms_1
     outs:
-    - nodes/SmilesToAtoms_1/atoms.h5
-    - nodes/SmilesToAtoms_1/molecule.png
-  Packmol:
-    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
+    - nodes/BMIM_BF4_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_BF4_SmilesToAtoms_1/molecule.png
+  BMIM_BF4_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol
     deps:
-    - nodes/SmilesToAtoms/atoms.h5
-    - nodes/SmilesToAtoms/molecule.png
-    - nodes/SmilesToAtoms_1/atoms.h5
-    - nodes/SmilesToAtoms_1/molecule.png
+    - nodes/BMIM_BF4_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_BF4_SmilesToAtoms/molecule.png
+    - nodes/BMIM_BF4_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_BF4_SmilesToAtoms_1/molecule.png
     params:
-    - Packmol
+    - BMIM_BF4_Packmol
     outs:
-    - nodes/Packmol/atoms.h5
-    - nodes/Packmol/packmol
-  Packmol_1:
-    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol_1
+    - nodes/BMIM_BF4_Packmol/atoms.h5
+    - nodes/BMIM_BF4_Packmol/packmol
+  BMIM_BF4_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol_1
     deps:
-    - nodes/Packmol/atoms.h5
-    - nodes/Packmol/packmol
+    - nodes/BMIM_BF4_Packmol/atoms.h5
+    - nodes/BMIM_BF4_Packmol/packmol
     params:
-    - Packmol_1
+    - BMIM_BF4_Packmol_1
     outs:
-    - nodes/Packmol_1/atoms.h5
-    - nodes/Packmol_1/packmol
-  CP2KSinglePoint:
-    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
+    - nodes/BMIM_BF4_Packmol_1/atoms.h5
+    - nodes/BMIM_BF4_Packmol_1/packmol
+  BMIM_BF4_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_BF4_CP2KSinglePoint
     deps:
     - GTH_BASIS_SETS
     - GTH_POTENTIALS
     - dftd3.dat
-    - nodes/Packmol_1/atoms.h5
-    - nodes/Packmol_1/packmol
+    - nodes/BMIM_BF4_Packmol_1/atoms.h5
+    - nodes/BMIM_BF4_Packmol_1/packmol
     params:
     - cp2k.yaml:
     outs:
-    - nodes/CP2KSinglePoint/atoms.h5
-    - nodes/CP2KSinglePoint/cp2k
-  BMIM_BF4-x10:
-    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4-x10
+    - nodes/BMIM_BF4_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_BF4_CP2KSinglePoint/cp2k
+  BMIM_BF4_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4_x10
     deps:
-    - nodes/CP2KSinglePoint/atoms.h5
-    - nodes/CP2KSinglePoint/cp2k
-    - nodes/Packmol_1/atoms.h5
-    - nodes/Packmol_1/packmol
+    - nodes/BMIM_BF4_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_BF4_CP2KSinglePoint/cp2k
+    - nodes/BMIM_BF4_Packmol_1/atoms.h5
+    - nodes/BMIM_BF4_Packmol_1/packmol
     params:
-    - BMIM_BF4-x10
+    - BMIM_BF4_x10
     outs:
-    - nodes/BMIM_BF4-x10/model_outs
-    - nodes/BMIM_BF4-x10/optim.traj
+    - nodes/BMIM_BF4_x10/model_outs
+    - nodes/BMIM_BF4_x10/optim.traj

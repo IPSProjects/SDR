@@ -1,99 +1,7 @@
 schema: '2.0'
 stages:
-  SmilesToAtoms:
-    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms
-    params:
-      params.yaml:
-        SmilesToAtoms:
-          cell:
-          optimizer: UFF
-          seed: 1234
-          smiles: CCCCN1C=C[N+](=C1)C
-    outs:
-    - path: nodes/SmilesToAtoms/atoms.h5
-      md5: 744f94e60270ed284980820ff3038f19
-      size: 27968
-    - path: nodes/SmilesToAtoms/molecule.png
-      md5: f7018ebeb9f321e41d1e4ddc54722888
-      size: 7734
-  SmilesToAtoms_1:
-    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms_1
-    params:
-      params.yaml:
-        SmilesToAtoms_1:
-          cell:
-          optimizer: UFF
-          seed: 1234
-          smiles: '[B-](F)(F)(F)F'
-    outs:
-    - path: nodes/SmilesToAtoms_1/atoms.h5
-      md5: 181a42114d5c08d6ac24e8ce30a8f82b
-      size: 27968
-    - path: nodes/SmilesToAtoms_1/molecule.png
-      md5: 32d2295f23e1edb9a0f841fbd2931792
-      size: 2963
-  Packmol:
-    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
-    deps:
-    - path: nodes/SmilesToAtoms/atoms.h5
-      md5: 744f94e60270ed284980820ff3038f19
-      size: 27968
-    - path: nodes/SmilesToAtoms/molecule.png
-      md5: f7018ebeb9f321e41d1e4ddc54722888
-      size: 7734
-    - path: nodes/SmilesToAtoms_1/atoms.h5
-      md5: 181a42114d5c08d6ac24e8ce30a8f82b
-      size: 27968
-    - path: nodes/SmilesToAtoms_1/molecule.png
-      md5: 32d2295f23e1edb9a0f841fbd2931792
-      size: 2963
-    params:
-      params.yaml:
-        Packmol:
-          box:
-          count:
-          - 1
-          - 1
-          data_ids:
-          density: 1210
-          tolerance: 2.0
-    outs:
-    - path: nodes/Packmol/atoms.h5
-      md5: c32f2190bc1f40d5bb4587a7b4741bea
-      size: 27968
-    - path: nodes/Packmol/packmol
-      md5: 9211f580932fa95a1d122b0e2be6699c.dir
-      size: 3841
-      nfiles: 4
-  Packmol_1:
-    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol_1
-    deps:
-    - path: nodes/Packmol/atoms.h5
-      md5: c32f2190bc1f40d5bb4587a7b4741bea
-      size: 27968
-    - path: nodes/Packmol/packmol
-      md5: 9211f580932fa95a1d122b0e2be6699c.dir
-      size: 3841
-      nfiles: 4
-    params:
-      params.yaml:
-        Packmol_1:
-          box:
-          count:
-          - 10
-          data_ids:
-          density: 1210
-          tolerance: 2.0
-    outs:
-    - path: nodes/Packmol_1/atoms.h5
-      md5: 004fbeec002d78da2d14ecd32a86e97f
-      size: 37568
-    - path: nodes/Packmol_1/packmol
-      md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
-      size: 18862
-      nfiles: 3
-  CP2KSinglePoint:
-    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
+  BMIM_BF4_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_BF4_CP2KSinglePoint
     deps:
     - path: GTH_BASIS_SETS
       md5: 518e733a7344699cf0b4192bb97eb6a3
@@ -104,10 +12,10 @@ stages:
     - path: dftd3.dat
       md5: 88745bcc951a4bcdccc4d6bcfa78d105
       size: 1959318
-    - path: nodes/Packmol_1/atoms.h5
+    - path: nodes/BMIM_BF4_Packmol_1/atoms.h5
       md5: 004fbeec002d78da2d14ecd32a86e97f
       size: 37568
-    - path: nodes/Packmol_1/packmol
+    - path: nodes/BMIM_BF4_Packmol_1/packmol
       md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
       size: 18862
       nfiles: 3
@@ -177,33 +85,125 @@ stages:
                 basis_set: TZVP-GTH-q7
                 potential: GTH-PBE-q7
     outs:
-    - path: nodes/CP2KSinglePoint/atoms.h5
+    - path: nodes/BMIM_BF4_CP2KSinglePoint/atoms.h5
       md5: e16aa04b895ab726829e6709d0e72939
       size: 57448
-    - path: nodes/CP2KSinglePoint/cp2k
+    - path: nodes/BMIM_BF4_CP2KSinglePoint/cp2k
       md5: f7497b78caefdfd2d5183141b9bf0503.dir
       size: 12394676
       nfiles: 3
-  BMIM_BF4-x10:
-    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4-x10
+  BMIM_BF4_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol
     deps:
-    - path: nodes/CP2KSinglePoint/atoms.h5
-      md5: e16aa04b895ab726829e6709d0e72939
-      size: 57448
-    - path: nodes/CP2KSinglePoint/cp2k
-      md5: f7497b78caefdfd2d5183141b9bf0503.dir
-      size: 12394676
-      nfiles: 3
-    - path: nodes/Packmol_1/atoms.h5
+    - path: nodes/BMIM_BF4_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_BF4_SmilesToAtoms/molecule.png
+      md5: f7018ebeb9f321e41d1e4ddc54722888
+      size: 7734
+    - path: nodes/BMIM_BF4_SmilesToAtoms_1/atoms.h5
+      md5: 181a42114d5c08d6ac24e8ce30a8f82b
+      size: 27968
+    - path: nodes/BMIM_BF4_SmilesToAtoms_1/molecule.png
+      md5: 32d2295f23e1edb9a0f841fbd2931792
+      size: 2963
+    params:
+      params.yaml:
+        BMIM_BF4_Packmol:
+          box:
+          count:
+          - 1
+          - 1
+          data_ids:
+          density: 1210
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_BF4_Packmol/atoms.h5
+      md5: c32f2190bc1f40d5bb4587a7b4741bea
+      size: 27968
+    - path: nodes/BMIM_BF4_Packmol/packmol
+      md5: 9211f580932fa95a1d122b0e2be6699c.dir
+      size: 3841
+      nfiles: 4
+  BMIM_BF4_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol_1
+    deps:
+    - path: nodes/BMIM_BF4_Packmol/atoms.h5
+      md5: c32f2190bc1f40d5bb4587a7b4741bea
+      size: 27968
+    - path: nodes/BMIM_BF4_Packmol/packmol
+      md5: 9211f580932fa95a1d122b0e2be6699c.dir
+      size: 3841
+      nfiles: 4
+    params:
+      params.yaml:
+        BMIM_BF4_Packmol_1:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 1210
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_BF4_Packmol_1/atoms.h5
       md5: 004fbeec002d78da2d14ecd32a86e97f
       size: 37568
-    - path: nodes/Packmol_1/packmol
+    - path: nodes/BMIM_BF4_Packmol_1/packmol
+      md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
+      size: 18862
+      nfiles: 3
+  BMIM_BF4_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms
+    params:
+      params.yaml:
+        BMIM_BF4_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CCCCN1C=C[N+](=C1)C
+    outs:
+    - path: nodes/BMIM_BF4_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_BF4_SmilesToAtoms/molecule.png
+      md5: f7018ebeb9f321e41d1e4ddc54722888
+      size: 7734
+  BMIM_BF4_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms_1
+    params:
+      params.yaml:
+        BMIM_BF4_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: '[B-](F)(F)(F)F'
+    outs:
+    - path: nodes/BMIM_BF4_SmilesToAtoms_1/atoms.h5
+      md5: 181a42114d5c08d6ac24e8ce30a8f82b
+      size: 27968
+    - path: nodes/BMIM_BF4_SmilesToAtoms_1/molecule.png
+      md5: 32d2295f23e1edb9a0f841fbd2931792
+      size: 2963
+  BMIM_BF4_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4_x10
+    deps:
+    - path: nodes/BMIM_BF4_CP2KSinglePoint/atoms.h5
+      md5: e16aa04b895ab726829e6709d0e72939
+      size: 57448
+    - path: nodes/BMIM_BF4_CP2KSinglePoint/cp2k
+      md5: f7497b78caefdfd2d5183141b9bf0503.dir
+      size: 12394676
+      nfiles: 3
+    - path: nodes/BMIM_BF4_Packmol_1/atoms.h5
+      md5: 004fbeec002d78da2d14ecd32a86e97f
+      size: 37568
+    - path: nodes/BMIM_BF4_Packmol_1/packmol
       md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
       size: 18862
       nfiles: 3
     params:
       params.yaml:
-        BMIM_BF4-x10:
+        BMIM_BF4_x10:
           data_id: 0
           init_kwargs: {}
           optimizer: BFGS
@@ -214,10 +214,10 @@ stages:
           run_kwargs:
             fmax: 0.1
     outs:
-    - path: nodes/BMIM_BF4-x10/model_outs
+    - path: nodes/BMIM_BF4_x10/model_outs
       md5: 64154b0e8b723e2012f919ef5b20d512.dir
       size: 59250627
       nfiles: 7
-    - path: nodes/BMIM_BF4-x10/optim.traj
+    - path: nodes/BMIM_BF4_x10/optim.traj
       md5: 21add6dbd140c480016df963f518db08
       size: 3354545

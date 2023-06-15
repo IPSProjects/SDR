@@ -1,4 +1,29 @@
-BMIM_BF4-x10:
+BMIM_BF4_Packmol:
+    box: null
+    count:
+    - 1
+    - 1
+    data_ids: null
+    density: 1210
+    tolerance: 2.0
+BMIM_BF4_Packmol_1:
+    box: null
+    count:
+    - 10
+    data_ids: null
+    density: 1210
+    tolerance: 2.0
+BMIM_BF4_SmilesToAtoms:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: CCCCN1C=C[N+](=C1)C
+BMIM_BF4_SmilesToAtoms_1:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: '[B-](F)(F)(F)F'
+BMIM_BF4_x10:
     data_id: 0
     init_kwargs: {}
     optimizer: BFGS
@@ -8,28 +33,3 @@ BMIM_BF4-x10:
     - 1
     run_kwargs:
         fmax: 0.1
-Packmol:
-    box: null
-    count:
-    - 1
-    - 1
-    data_ids: null
-    density: 1210
-    tolerance: 2.0
-Packmol_1:
-    box: null
-    count:
-    - 10
-    data_ids: null
-    density: 1210
-    tolerance: 2.0
-SmilesToAtoms:
-    cell: null
-    optimizer: UFF
-    seed: 1234
-    smiles: CCCCN1C=C[N+](=C1)C
-SmilesToAtoms_1:
-    cell: null
-    optimizer: UFF
-    seed: 1234
-    smiles: '[B-](F)(F)(F)F'
