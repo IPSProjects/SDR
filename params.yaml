@@ -1,16 +1,16 @@
-EMC_Packmol:
+EC_Packmol:
     box: null
     count:
     - 10
     data_ids: null
-    density: 1010
+    density: 1321
     tolerance: 2.0
-EMC_SmilesToAtoms:
+EC_SmilesToAtoms:
     cell: null
     optimizer: UFF
     seed: 1234
-    smiles: CCOC(=O)OC
-EMC_x10:
+    smiles: C1COC(=O)O1
+EC_x10:
     data_id: 0
     init_kwargs: {}
     optimizer: BFGS

@@ -1,43 +1,43 @@
 stages:
-  EMC_SmilesToAtoms:
-    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name EMC_SmilesToAtoms
+  EC_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name EC_SmilesToAtoms
     params:
-    - EMC_SmilesToAtoms
+    - EC_SmilesToAtoms
     outs:
-    - nodes/EMC_SmilesToAtoms/atoms.h5
-    - nodes/EMC_SmilesToAtoms/molecule.png
-  EMC_Packmol:
-    cmd: zntrack run ipsuite.nodes.Packmol --name EMC_Packmol
+    - nodes/EC_SmilesToAtoms/atoms.h5
+    - nodes/EC_SmilesToAtoms/molecule.png
+  EC_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name EC_Packmol
     deps:
-    - nodes/EMC_SmilesToAtoms/atoms.h5
-    - nodes/EMC_SmilesToAtoms/molecule.png
+    - nodes/EC_SmilesToAtoms/atoms.h5
+    - nodes/EC_SmilesToAtoms/molecule.png
     params:
-    - EMC_Packmol
+    - EC_Packmol
     outs:
-    - nodes/EMC_Packmol/atoms.h5
-    - nodes/EMC_Packmol/packmol
-  EMC_CP2KSinglePoint:
-    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name EMC_CP2KSinglePoint
+    - nodes/EC_Packmol/atoms.h5
+    - nodes/EC_Packmol/packmol
+  EC_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name EC_CP2KSinglePoint
     deps:
     - GTH_BASIS_SETS
     - GTH_POTENTIALS
     - dftd3.dat
-    - nodes/EMC_Packmol/atoms.h5
-    - nodes/EMC_Packmol/packmol
+    - nodes/EC_Packmol/atoms.h5
+    - nodes/EC_Packmol/packmol
     params:
     - cp2k.yaml:
     outs:
-    - nodes/EMC_CP2KSinglePoint/atoms.h5
-    - nodes/EMC_CP2KSinglePoint/cp2k
-  EMC_x10:
-    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EMC_x10
+    - nodes/EC_CP2KSinglePoint/atoms.h5
+    - nodes/EC_CP2KSinglePoint/cp2k
+  EC_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EC_x10
     deps:
-    - nodes/EMC_CP2KSinglePoint/atoms.h5
-    - nodes/EMC_CP2KSinglePoint/cp2k
-    - nodes/EMC_Packmol/atoms.h5
-    - nodes/EMC_Packmol/packmol
+    - nodes/EC_CP2KSinglePoint/atoms.h5
+    - nodes/EC_CP2KSinglePoint/cp2k
+    - nodes/EC_Packmol/atoms.h5
+    - nodes/EC_Packmol/packmol
     params:
-    - EMC_x10
+    - EC_x10
     outs:
-    - nodes/EMC_x10/model_outs
-    - nodes/EMC_x10/optim.traj
+    - nodes/EC_x10/model_outs
+    - nodes/EC_x10/optim.traj
