@@ -1,5 +1,556 @@
 schema: '2.0'
 stages:
+  BMIM_BF4_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms_1
+    params:
+      params.yaml:
+        BMIM_BF4_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: '[B-](F)(F)(F)F'
+    outs:
+    - path: nodes/BMIM_BF4_SmilesToAtoms_1/atoms.h5
+      md5: 181a42114d5c08d6ac24e8ce30a8f82b
+      size: 27968
+    - path: nodes/BMIM_BF4_SmilesToAtoms_1/molecule.png
+      md5: 997f23bda60b18cd532f3af5e5b3fe1c
+      size: 2963
+  BMIM_NCN2_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_NCN2_SmilesToAtoms
+    params:
+      params.yaml:
+        BMIM_NCN2_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CCCCN1C=C[N+](=C1)C
+    outs:
+    - path: nodes/BMIM_NCN2_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_NCN2_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+  BMIM_NCN2_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_NCN2_SmilesToAtoms_1
+    params:
+      params.yaml:
+        BMIM_NCN2_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: C(=[N-])=NC#N
+    outs:
+    - path: nodes/BMIM_NCN2_SmilesToAtoms_1/atoms.h5
+      md5: 773ee8361df1607328caa30050d1a2ad
+      size: 27968
+    - path: nodes/BMIM_NCN2_SmilesToAtoms_1/molecule.png
+      md5: 7c85447488ba70b81eca6cfe823a3db5
+      size: 6216
+  BMIM_NCN2_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_NCN2_Packmol
+    deps:
+    - path: nodes/BMIM_NCN2_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_NCN2_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+    - path: nodes/BMIM_NCN2_SmilesToAtoms_1/atoms.h5
+      md5: 773ee8361df1607328caa30050d1a2ad
+      size: 27968
+    - path: nodes/BMIM_NCN2_SmilesToAtoms_1/molecule.png
+      md5: 7c85447488ba70b81eca6cfe823a3db5
+      size: 6216
+    params:
+      params.yaml:
+        BMIM_NCN2_Packmol:
+          box:
+          count:
+          - 1
+          - 1
+          data_ids:
+          density: 1060
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_NCN2_Packmol/atoms.h5
+      md5: 67f921ad82cb0d3a6ed6d4acf2b29712
+      size: 27968
+    - path: nodes/BMIM_NCN2_Packmol/packmol
+      md5: 865033b039192d709b20fa615925ac58.dir
+      size: 3841
+      nfiles: 4
+  BMIM_NCN2_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_NCN2_Packmol_1
+    deps:
+    - path: nodes/BMIM_NCN2_Packmol/atoms.h5
+      md5: 67f921ad82cb0d3a6ed6d4acf2b29712
+      size: 27968
+    - path: nodes/BMIM_NCN2_Packmol/packmol
+      md5: 865033b039192d709b20fa615925ac58.dir
+      size: 3841
+      nfiles: 4
+    params:
+      params.yaml:
+        BMIM_NCN2_Packmol_1:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 1060
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_NCN2_Packmol_1/atoms.h5
+      md5: 6b69014591a69b8e8840516cf14d1ff8
+      size: 37568
+    - path: nodes/BMIM_NCN2_Packmol_1/packmol
+      md5: fd67d996538ee4792c7f893ec8a761f4.dir
+      size: 18859
+      nfiles: 3
+  BMIM_NCN2_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_NCN2_CP2KSinglePoint
+    deps:
+    - path: GTH_BASIS_SETS
+      md5: 518e733a7344699cf0b4192bb97eb6a3
+      size: 119403
+    - path: GTH_POTENTIALS
+      md5: 3a35b03b26b8ba5cf6c1d849dba11f15
+      size: 128982
+    - path: dftd3.dat
+      md5: 88745bcc951a4bcdccc4d6bcfa78d105
+      size: 1959318
+    - path: nodes/BMIM_NCN2_Packmol_1/atoms.h5
+      md5: 6b69014591a69b8e8840516cf14d1ff8
+      size: 37568
+    - path: nodes/BMIM_NCN2_Packmol_1/packmol
+      md5: fd67d996538ee4792c7f893ec8a761f4.dir
+      size: 18859
+      nfiles: 3
+    params:
+      cp2k.yaml:
+        force_eval:
+          method: quickstep
+          DFT:
+            mgrid:
+              cutoff: 1800.0
+              rel_cutoff: 120.0
+              ngrids: 5
+            QS:
+              eps_filter_matrix: 0.0
+              eps_pgf_orb: 0.0001
+            SCF:
+              scf_guess: restart
+              max_scf: 100
+              eps_scf: 1e-06
+              OT:
+                minimizer: diis
+                preconditioner: full_single_inverse
+              outer_scf:
+                max_scf: 100
+                eps_scf: 1e-06
+              print:
+                restart:
+                  each:
+                    QS_SCF: 0
+            XC:
+              xc_functional:
+                becke97:
+                  scale_c: 1.0
+                  scale_x: 1.0
+              vdw_potential:
+                pair_potential:
+                  type: dftd3(bj)
+                  parameter_file_name: dftd3.dat
+                  reference_functional: B97-3c
+                  r_cutoff: 7.93766
+                  calculate_c9_term: true
+                  short_range_correction: true
+                potential_type: pair_potential
+            print:
+              moments:
+                _: ON
+              hirshfeld:
+                _: ON
+            charge: 0
+            basis_set_file_name: GTH_BASIS_SETS
+            potential_file_name: GTH_POTENTIALS
+          subsys:
+            kind:
+              N:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+              C:
+                basis_set: TZVP-GTH-q4
+                potential: GTH-PBE-q4
+              H:
+                basis_set: TZVP-GTH-q1
+                potential: GTH-PBE-q1
+              B:
+                basis_set: TZVP-GTH-q3
+                potential: GTH-PBE-q3
+              F:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              Cl:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              O:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              S:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              P:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+    outs:
+    - path: nodes/BMIM_NCN2_CP2KSinglePoint/atoms.h5
+      md5: 24d02196e6db63f106f66697a16a1151
+      size: 57448
+    - path: nodes/BMIM_NCN2_CP2KSinglePoint/cp2k
+      md5: 622702afe3f7224c675a7bd5863316c7.dir
+      size: 11243569
+      nfiles: 3
+  BMIM_NCN2_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_NCN2_x10
+    deps:
+    - path: nodes/BMIM_NCN2_CP2KSinglePoint/atoms.h5
+      md5: 24d02196e6db63f106f66697a16a1151
+      size: 57448
+    - path: nodes/BMIM_NCN2_CP2KSinglePoint/cp2k
+      md5: 622702afe3f7224c675a7bd5863316c7.dir
+      size: 11243569
+      nfiles: 3
+    - path: nodes/BMIM_NCN2_Packmol_1/atoms.h5
+      md5: 6b69014591a69b8e8840516cf14d1ff8
+      size: 37568
+    - path: nodes/BMIM_NCN2_Packmol_1/packmol
+      md5: fd67d996538ee4792c7f893ec8a761f4.dir
+      size: 18859
+      nfiles: 3
+    params:
+      params.yaml:
+        BMIM_NCN2_x10:
+          data_id: 0
+          init_kwargs: {}
+          optimizer: BFGS
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.1
+    outs:
+    - path: nodes/BMIM_NCN2_x10/model_outs
+      md5: a19d34bea32b84ed84a5c682d4006b2d.dir
+      size: 54687940
+      nfiles: 7
+    - path: nodes/BMIM_NCN2_x10/optim.traj
+      md5: f3505df996fe424f4d08af0ba0aaf065
+      size: 3385932
+  BMIM_BF4_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms
+    params:
+      params.yaml:
+        BMIM_BF4_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CCCCN1C=C[N+](=C1)C
+    outs:
+    - path: nodes/BMIM_BF4_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_BF4_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+  BMIM_PF6_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_PF6_SmilesToAtoms
+    params:
+      params.yaml:
+        BMIM_PF6_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CCCCN1C=C[N+](=C1)C
+    outs:
+    - path: nodes/BMIM_PF6_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_PF6_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+  BMIM_PF6_AddData:
+    cmd: zntrack run ipsuite.nodes.AddData --name BMIM_PF6_AddData
+    deps:
+    - path: data/pf6.xyz
+      md5: 9b7d81e581c8417abd5ed95a50774cc0
+      size: 346
+    params:
+      params.yaml:
+        BMIM_PF6_AddData:
+          lines_to_read:
+    outs:
+    - path: nodes/BMIM_PF6_AddData/atoms.h5
+      md5: 622ddfcb7f8841f539c5566a81a88ab8
+      size: 27968
+  BMIM_FSI_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_FSI_SmilesToAtoms
+    params:
+      params.yaml:
+        BMIM_FSI_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CCCCN1C=C[N+](=C1)C
+    outs:
+    - path: nodes/BMIM_FSI_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_FSI_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+  BMIM_FSI_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_FSI_SmilesToAtoms_1
+    params:
+      params.yaml:
+        BMIM_FSI_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: '[N-](S(=O)(=O)F)S(=O)(=O)F'
+    outs:
+    - path: nodes/BMIM_FSI_SmilesToAtoms_1/atoms.h5
+      md5: ef15137e0039cf88dece467e2f0226e7
+      size: 27968
+    - path: nodes/BMIM_FSI_SmilesToAtoms_1/molecule.png
+      md5: d4258a9ec1801f4a05e13b39c9ed95fd
+      size: 11530
+  BMIM_FSI_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_FSI_Packmol
+    deps:
+    - path: nodes/BMIM_FSI_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_FSI_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+    - path: nodes/BMIM_FSI_SmilesToAtoms_1/atoms.h5
+      md5: ef15137e0039cf88dece467e2f0226e7
+      size: 27968
+    - path: nodes/BMIM_FSI_SmilesToAtoms_1/molecule.png
+      md5: d4258a9ec1801f4a05e13b39c9ed95fd
+      size: 11530
+    params:
+      params.yaml:
+        BMIM_FSI_Packmol:
+          box:
+          count:
+          - 1
+          - 1
+          data_ids:
+          density: 1350
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_FSI_Packmol/atoms.h5
+      md5: 618eb2a572c98bd5ff0bba42a7ffb827
+      size: 27968
+    - path: nodes/BMIM_FSI_Packmol/packmol
+      md5: 425582faebf570862baa8d9724f5b8c3.dir
+      size: 4281
+      nfiles: 4
+  BMIM_FSI_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_FSI_Packmol_1
+    deps:
+    - path: nodes/BMIM_FSI_Packmol/atoms.h5
+      md5: 618eb2a572c98bd5ff0bba42a7ffb827
+      size: 27968
+    - path: nodes/BMIM_FSI_Packmol/packmol
+      md5: 425582faebf570862baa8d9724f5b8c3.dir
+      size: 4281
+      nfiles: 4
+    params:
+      params.yaml:
+        BMIM_FSI_Packmol_1:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 1350
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_FSI_Packmol_1/atoms.h5
+      md5: f521fa507899c3aa454c467b4f1f492a
+      size: 38848
+    - path: nodes/BMIM_FSI_Packmol_1/packmol
+      md5: c363a7d89fffc205d76c29965028ddd1.dir
+      size: 21321
+      nfiles: 3
+  BMIM_FSI_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_FSI_CP2KSinglePoint
+    deps:
+    - path: GTH_BASIS_SETS
+      md5: 518e733a7344699cf0b4192bb97eb6a3
+      size: 119403
+    - path: GTH_POTENTIALS
+      md5: 3a35b03b26b8ba5cf6c1d849dba11f15
+      size: 128982
+    - path: dftd3.dat
+      md5: 88745bcc951a4bcdccc4d6bcfa78d105
+      size: 1959318
+    - path: nodes/BMIM_FSI_Packmol_1/atoms.h5
+      md5: f521fa507899c3aa454c467b4f1f492a
+      size: 38848
+    - path: nodes/BMIM_FSI_Packmol_1/packmol
+      md5: c363a7d89fffc205d76c29965028ddd1.dir
+      size: 21321
+      nfiles: 3
+    params:
+      cp2k.yaml:
+        force_eval:
+          method: quickstep
+          DFT:
+            mgrid:
+              cutoff: 1800.0
+              rel_cutoff: 120.0
+              ngrids: 5
+            QS:
+              eps_filter_matrix: 0.0
+              eps_pgf_orb: 0.0001
+            SCF:
+              scf_guess: restart
+              max_scf: 100
+              eps_scf: 1e-06
+              OT:
+                minimizer: diis
+                preconditioner: full_single_inverse
+              outer_scf:
+                max_scf: 100
+                eps_scf: 1e-06
+              print:
+                restart:
+                  each:
+                    QS_SCF: 0
+            XC:
+              xc_functional:
+                becke97:
+                  scale_c: 1.0
+                  scale_x: 1.0
+              vdw_potential:
+                pair_potential:
+                  type: dftd3(bj)
+                  parameter_file_name: dftd3.dat
+                  reference_functional: B97-3c
+                  r_cutoff: 7.93766
+                  calculate_c9_term: true
+                  short_range_correction: true
+                potential_type: pair_potential
+            print:
+              moments:
+                _: ON
+              hirshfeld:
+                _: ON
+            charge: 0
+            basis_set_file_name: GTH_BASIS_SETS
+            potential_file_name: GTH_POTENTIALS
+          subsys:
+            kind:
+              N:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+              C:
+                basis_set: TZVP-GTH-q4
+                potential: GTH-PBE-q4
+              H:
+                basis_set: TZVP-GTH-q1
+                potential: GTH-PBE-q1
+              B:
+                basis_set: TZVP-GTH-q3
+                potential: GTH-PBE-q3
+              F:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              Cl:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              O:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              S:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              P:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+    outs:
+    - path: nodes/BMIM_FSI_CP2KSinglePoint/atoms.h5
+      md5: 474b285f7a048623c09d0305523762eb
+      size: 59688
+    - path: nodes/BMIM_FSI_CP2KSinglePoint/cp2k
+      md5: 94980ff6da678164a76e0f2da31f1837.dir
+      size: 18758999
+      nfiles: 3
+  BMIM_BF4_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol
+    deps:
+    - path: nodes/BMIM_BF4_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_BF4_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+    - path: nodes/BMIM_BF4_SmilesToAtoms_1/atoms.h5
+      md5: 181a42114d5c08d6ac24e8ce30a8f82b
+      size: 27968
+    - path: nodes/BMIM_BF4_SmilesToAtoms_1/molecule.png
+      md5: 997f23bda60b18cd532f3af5e5b3fe1c
+      size: 2963
+    params:
+      params.yaml:
+        BMIM_BF4_Packmol:
+          box:
+          count:
+          - 1
+          - 1
+          data_ids:
+          density: 1210
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_BF4_Packmol/atoms.h5
+      md5: 7f7df15575858694ccc510260ebfe672
+      size: 27968
+    - path: nodes/BMIM_BF4_Packmol/packmol
+      md5: b18c587119cedcda46bebc619616ddcc.dir
+      size: 3841
+      nfiles: 4
+  BMIM_BF4_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol_1
+    deps:
+    - path: nodes/BMIM_BF4_Packmol/atoms.h5
+      md5: 7f7df15575858694ccc510260ebfe672
+      size: 27968
+    - path: nodes/BMIM_BF4_Packmol/packmol
+      md5: b18c587119cedcda46bebc619616ddcc.dir
+      size: 3841
+      nfiles: 4
+    params:
+      params.yaml:
+        BMIM_BF4_Packmol_1:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 1210
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_BF4_Packmol_1/atoms.h5
+      md5: 9bf25b064e3bbdcf35a16004ff02f0e1
+      size: 37568
+    - path: nodes/BMIM_BF4_Packmol_1/packmol
+      md5: d3f499e937fc9f22403f1b27e3acdf42.dir
+      size: 18862
+      nfiles: 3
   BMIM_BF4_CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_BF4_CP2KSinglePoint
     deps:
@@ -13,10 +564,10 @@ stages:
       md5: 88745bcc951a4bcdccc4d6bcfa78d105
       size: 1959318
     - path: nodes/BMIM_BF4_Packmol_1/atoms.h5
-      md5: 004fbeec002d78da2d14ecd32a86e97f
+      md5: 9bf25b064e3bbdcf35a16004ff02f0e1
       size: 37568
     - path: nodes/BMIM_BF4_Packmol_1/packmol
-      md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
+      md5: d3f499e937fc9f22403f1b27e3acdf42.dir
       size: 18862
       nfiles: 3
     params:
@@ -84,121 +635,705 @@ stages:
               F:
                 basis_set: TZVP-GTH-q7
                 potential: GTH-PBE-q7
+              Cl:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              O:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              S:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              P:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
     outs:
     - path: nodes/BMIM_BF4_CP2KSinglePoint/atoms.h5
-      md5: e16aa04b895ab726829e6709d0e72939
+      md5: 2b4eceee3a29c179b9bee9d45814ab7a
       size: 57448
     - path: nodes/BMIM_BF4_CP2KSinglePoint/cp2k
-      md5: f7497b78caefdfd2d5183141b9bf0503.dir
-      size: 12394676
+      md5: 8d1d1d92cbd1314b07203d6397acb448.dir
+      size: 12374364
       nfiles: 3
-  BMIM_BF4_Packmol:
-    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol
-    deps:
-    - path: nodes/BMIM_BF4_SmilesToAtoms/atoms.h5
-      md5: 744f94e60270ed284980820ff3038f19
-      size: 27968
-    - path: nodes/BMIM_BF4_SmilesToAtoms/molecule.png
-      md5: f7018ebeb9f321e41d1e4ddc54722888
-      size: 7734
-    - path: nodes/BMIM_BF4_SmilesToAtoms_1/atoms.h5
-      md5: 181a42114d5c08d6ac24e8ce30a8f82b
-      size: 27968
-    - path: nodes/BMIM_BF4_SmilesToAtoms_1/molecule.png
-      md5: 32d2295f23e1edb9a0f841fbd2931792
-      size: 2963
+  BMIM_Cl_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_Cl_SmilesToAtoms
     params:
       params.yaml:
-        BMIM_BF4_Packmol:
-          box:
-          count:
-          - 1
-          - 1
-          data_ids:
-          density: 1210
-          tolerance: 2.0
-    outs:
-    - path: nodes/BMIM_BF4_Packmol/atoms.h5
-      md5: c32f2190bc1f40d5bb4587a7b4741bea
-      size: 27968
-    - path: nodes/BMIM_BF4_Packmol/packmol
-      md5: 9211f580932fa95a1d122b0e2be6699c.dir
-      size: 3841
-      nfiles: 4
-  BMIM_BF4_Packmol_1:
-    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol_1
-    deps:
-    - path: nodes/BMIM_BF4_Packmol/atoms.h5
-      md5: c32f2190bc1f40d5bb4587a7b4741bea
-      size: 27968
-    - path: nodes/BMIM_BF4_Packmol/packmol
-      md5: 9211f580932fa95a1d122b0e2be6699c.dir
-      size: 3841
-      nfiles: 4
-    params:
-      params.yaml:
-        BMIM_BF4_Packmol_1:
-          box:
-          count:
-          - 10
-          data_ids:
-          density: 1210
-          tolerance: 2.0
-    outs:
-    - path: nodes/BMIM_BF4_Packmol_1/atoms.h5
-      md5: 004fbeec002d78da2d14ecd32a86e97f
-      size: 37568
-    - path: nodes/BMIM_BF4_Packmol_1/packmol
-      md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
-      size: 18862
-      nfiles: 3
-  BMIM_BF4_SmilesToAtoms:
-    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms
-    params:
-      params.yaml:
-        BMIM_BF4_SmilesToAtoms:
+        BMIM_Cl_SmilesToAtoms:
           cell:
           optimizer: UFF
           seed: 1234
           smiles: CCCCN1C=C[N+](=C1)C
     outs:
-    - path: nodes/BMIM_BF4_SmilesToAtoms/atoms.h5
+    - path: nodes/BMIM_Cl_SmilesToAtoms/atoms.h5
       md5: 744f94e60270ed284980820ff3038f19
       size: 27968
-    - path: nodes/BMIM_BF4_SmilesToAtoms/molecule.png
-      md5: f7018ebeb9f321e41d1e4ddc54722888
+    - path: nodes/BMIM_Cl_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
       size: 7734
-  BMIM_BF4_SmilesToAtoms_1:
-    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms_1
+  BMIM_Cl_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_Cl_SmilesToAtoms_1
     params:
       params.yaml:
-        BMIM_BF4_SmilesToAtoms_1:
+        BMIM_Cl_SmilesToAtoms_1:
           cell:
           optimizer: UFF
           seed: 1234
-          smiles: '[B-](F)(F)(F)F'
+          smiles: '[Cl-]'
     outs:
-    - path: nodes/BMIM_BF4_SmilesToAtoms_1/atoms.h5
-      md5: 181a42114d5c08d6ac24e8ce30a8f82b
+    - path: nodes/BMIM_Cl_SmilesToAtoms_1/atoms.h5
+      md5: 1e408becdcab7f4faa515f2e39ad9639
       size: 27968
-    - path: nodes/BMIM_BF4_SmilesToAtoms_1/molecule.png
-      md5: 32d2295f23e1edb9a0f841fbd2931792
-      size: 2963
+    - path: nodes/BMIM_Cl_SmilesToAtoms_1/molecule.png
+      md5: e79938af7855a45ee8bf012982688e03
+      size: 2232
+  BMIM_Cl_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_Cl_Packmol
+    deps:
+    - path: nodes/BMIM_Cl_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_Cl_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+    - path: nodes/BMIM_Cl_SmilesToAtoms_1/atoms.h5
+      md5: 1e408becdcab7f4faa515f2e39ad9639
+      size: 27968
+    - path: nodes/BMIM_Cl_SmilesToAtoms_1/molecule.png
+      md5: e79938af7855a45ee8bf012982688e03
+      size: 2232
+    params:
+      params.yaml:
+        BMIM_Cl_Packmol:
+          box:
+          count:
+          - 1
+          - 1
+          data_ids:
+          density: 1086
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_Cl_Packmol/atoms.h5
+      md5: fbb45dab5f37cdaa61d56adf07fbce2d
+      size: 27968
+    - path: nodes/BMIM_Cl_Packmol/packmol
+      md5: fd4934efdd1720b4adfc01ac9d526d85.dir
+      size: 3401
+      nfiles: 4
+  BMIM_Cl_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_Cl_Packmol_1
+    deps:
+    - path: nodes/BMIM_Cl_Packmol/atoms.h5
+      md5: fbb45dab5f37cdaa61d56adf07fbce2d
+      size: 27968
+    - path: nodes/BMIM_Cl_Packmol/packmol
+      md5: fd4934efdd1720b4adfc01ac9d526d85.dir
+      size: 3401
+      nfiles: 4
+    params:
+      params.yaml:
+        BMIM_Cl_Packmol_1:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 1086
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_Cl_Packmol_1/atoms.h5
+      md5: aacd4361a9e02c0ab44189c6eff8f6d4
+      size: 36288
+    - path: nodes/BMIM_Cl_Packmol_1/packmol
+      md5: b80678b84bd9fb57ce7098c2efe6ae24.dir
+      size: 16406
+      nfiles: 3
+  BMIM_Cl_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_Cl_CP2KSinglePoint
+    deps:
+    - path: GTH_BASIS_SETS
+      md5: 518e733a7344699cf0b4192bb97eb6a3
+      size: 119403
+    - path: GTH_POTENTIALS
+      md5: 3a35b03b26b8ba5cf6c1d849dba11f15
+      size: 128982
+    - path: dftd3.dat
+      md5: 88745bcc951a4bcdccc4d6bcfa78d105
+      size: 1959318
+    - path: nodes/BMIM_Cl_Packmol_1/atoms.h5
+      md5: aacd4361a9e02c0ab44189c6eff8f6d4
+      size: 36288
+    - path: nodes/BMIM_Cl_Packmol_1/packmol
+      md5: b80678b84bd9fb57ce7098c2efe6ae24.dir
+      size: 16406
+      nfiles: 3
+    params:
+      cp2k.yaml:
+        force_eval:
+          method: quickstep
+          DFT:
+            mgrid:
+              cutoff: 1800.0
+              rel_cutoff: 120.0
+              ngrids: 5
+            QS:
+              eps_filter_matrix: 0.0
+              eps_pgf_orb: 0.0001
+            SCF:
+              scf_guess: restart
+              max_scf: 100
+              eps_scf: 1e-06
+              OT:
+                minimizer: diis
+                preconditioner: full_single_inverse
+              outer_scf:
+                max_scf: 100
+                eps_scf: 1e-06
+              print:
+                restart:
+                  each:
+                    QS_SCF: 0
+            XC:
+              xc_functional:
+                becke97:
+                  scale_c: 1.0
+                  scale_x: 1.0
+              vdw_potential:
+                pair_potential:
+                  type: dftd3(bj)
+                  parameter_file_name: dftd3.dat
+                  reference_functional: B97-3c
+                  r_cutoff: 7.93766
+                  calculate_c9_term: true
+                  short_range_correction: true
+                potential_type: pair_potential
+            print:
+              moments:
+                _: ON
+              hirshfeld:
+                _: ON
+            charge: 0
+            basis_set_file_name: GTH_BASIS_SETS
+            potential_file_name: GTH_POTENTIALS
+          subsys:
+            kind:
+              N:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+              C:
+                basis_set: TZVP-GTH-q4
+                potential: GTH-PBE-q4
+              H:
+                basis_set: TZVP-GTH-q1
+                potential: GTH-PBE-q1
+              B:
+                basis_set: TZVP-GTH-q3
+                potential: GTH-PBE-q3
+              F:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              Cl:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              O:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              S:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              P:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+    outs:
+    - path: nodes/BMIM_Cl_CP2KSinglePoint/atoms.h5
+      md5: 41bc558f9e6721aade6194654564fbbe
+      size: 55208
+    - path: nodes/BMIM_Cl_CP2KSinglePoint/cp2k
+      md5: 2ec0d14fe1d1daadad1457a2caec6778.dir
+      size: 7285448
+      nfiles: 3
+  BMIM_Cl_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_Cl_x10
+    deps:
+    - path: nodes/BMIM_Cl_CP2KSinglePoint/atoms.h5
+      md5: 41bc558f9e6721aade6194654564fbbe
+      size: 55208
+    - path: nodes/BMIM_Cl_CP2KSinglePoint/cp2k
+      md5: 2ec0d14fe1d1daadad1457a2caec6778.dir
+      size: 7285448
+      nfiles: 3
+    - path: nodes/BMIM_Cl_Packmol_1/atoms.h5
+      md5: aacd4361a9e02c0ab44189c6eff8f6d4
+      size: 36288
+    - path: nodes/BMIM_Cl_Packmol_1/packmol
+      md5: b80678b84bd9fb57ce7098c2efe6ae24.dir
+      size: 16406
+      nfiles: 3
+    params:
+      params.yaml:
+        BMIM_Cl_x10:
+          data_id: 0
+          init_kwargs: {}
+          optimizer: BFGS
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.1
+    outs:
+    - path: nodes/BMIM_Cl_x10/model_outs
+      md5: 2c73c9579efb02f84669696d7e259f31.dir
+      size: 40853569
+      nfiles: 7
+    - path: nodes/BMIM_Cl_x10/optim.traj
+      md5: 1e0942c2f59162004caf3147bd667b06
+      size: 4086995
+  BMIM_NTF2_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_NTF2_SmilesToAtoms
+    params:
+      params.yaml:
+        BMIM_NTF2_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CCCCN1C=C[N+](=C1)C
+    outs:
+    - path: nodes/BMIM_NTF2_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_NTF2_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+  BMIM_NTF2_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_NTF2_SmilesToAtoms_1
+    params:
+      params.yaml:
+        BMIM_NTF2_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: C(F)(F)(F)S(=O)(=O)[N-]S(=O)(=O)C(F)(F)F
+    outs:
+    - path: nodes/BMIM_NTF2_SmilesToAtoms_1/atoms.h5
+      md5: efbb65a2400b66714f178ac01e82e9e8
+      size: 27968
+    - path: nodes/BMIM_NTF2_SmilesToAtoms_1/molecule.png
+      md5: 9f18f1da59b564bfb207bdbb5998aa63
+      size: 12399
+  BMIM_NTF2_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_NTF2_Packmol
+    deps:
+    - path: nodes/BMIM_NTF2_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_NTF2_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+    - path: nodes/BMIM_NTF2_SmilesToAtoms_1/atoms.h5
+      md5: efbb65a2400b66714f178ac01e82e9e8
+      size: 27968
+    - path: nodes/BMIM_NTF2_SmilesToAtoms_1/molecule.png
+      md5: 9f18f1da59b564bfb207bdbb5998aa63
+      size: 12399
+    params:
+      params.yaml:
+        BMIM_NTF2_Packmol:
+          box:
+          count:
+          - 1
+          - 1
+          data_ids:
+          density: 1440
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_NTF2_Packmol/atoms.h5
+      md5: 81b6f4888c0ddc465379f8aecd0d03b5
+      size: 27968
+    - path: nodes/BMIM_NTF2_Packmol/packmol
+      md5: ad83aa0e1c65e73aa1f5355dbf017293.dir
+      size: 4942
+      nfiles: 4
+  BMIM_NTF2_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_NTF2_Packmol_1
+    deps:
+    - path: nodes/BMIM_NTF2_Packmol/atoms.h5
+      md5: 81b6f4888c0ddc465379f8aecd0d03b5
+      size: 27968
+    - path: nodes/BMIM_NTF2_Packmol/packmol
+      md5: ad83aa0e1c65e73aa1f5355dbf017293.dir
+      size: 4942
+      nfiles: 4
+    params:
+      params.yaml:
+        BMIM_NTF2_Packmol_1:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 1440
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_NTF2_Packmol_1/atoms.h5
+      md5: 40e619d3cedcb661b5fe5af2bab86052
+      size: 40768
+    - path: nodes/BMIM_NTF2_Packmol_1/packmol
+      md5: 960b51b3b454390bb3d09649ea1ceeb5.dir
+      size: 25002
+      nfiles: 3
+  BMIM_NTF2_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_NTF2_CP2KSinglePoint
+    deps:
+    - path: GTH_BASIS_SETS
+      md5: 518e733a7344699cf0b4192bb97eb6a3
+      size: 119403
+    - path: GTH_POTENTIALS
+      md5: 3a35b03b26b8ba5cf6c1d849dba11f15
+      size: 128982
+    - path: dftd3.dat
+      md5: 88745bcc951a4bcdccc4d6bcfa78d105
+      size: 1959318
+    - path: nodes/BMIM_NTF2_Packmol_1/atoms.h5
+      md5: 40e619d3cedcb661b5fe5af2bab86052
+      size: 40768
+    - path: nodes/BMIM_NTF2_Packmol_1/packmol
+      md5: 960b51b3b454390bb3d09649ea1ceeb5.dir
+      size: 25002
+      nfiles: 3
+    params:
+      cp2k.yaml:
+        force_eval:
+          method: quickstep
+          DFT:
+            mgrid:
+              cutoff: 1800.0
+              rel_cutoff: 120.0
+              ngrids: 5
+            QS:
+              eps_filter_matrix: 0.0
+              eps_pgf_orb: 0.0001
+            SCF:
+              scf_guess: restart
+              max_scf: 100
+              eps_scf: 1e-06
+              OT:
+                minimizer: diis
+                preconditioner: full_single_inverse
+              outer_scf:
+                max_scf: 100
+                eps_scf: 1e-06
+              print:
+                restart:
+                  each:
+                    QS_SCF: 0
+            XC:
+              xc_functional:
+                becke97:
+                  scale_c: 1.0
+                  scale_x: 1.0
+              vdw_potential:
+                pair_potential:
+                  type: dftd3(bj)
+                  parameter_file_name: dftd3.dat
+                  reference_functional: B97-3c
+                  r_cutoff: 7.93766
+                  calculate_c9_term: true
+                  short_range_correction: true
+                potential_type: pair_potential
+            print:
+              moments:
+                _: ON
+              hirshfeld:
+                _: ON
+            charge: 0
+            basis_set_file_name: GTH_BASIS_SETS
+            potential_file_name: GTH_POTENTIALS
+          subsys:
+            kind:
+              N:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+              C:
+                basis_set: TZVP-GTH-q4
+                potential: GTH-PBE-q4
+              H:
+                basis_set: TZVP-GTH-q1
+                potential: GTH-PBE-q1
+              B:
+                basis_set: TZVP-GTH-q3
+                potential: GTH-PBE-q3
+              F:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              Cl:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              O:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              S:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              P:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+    outs:
+    - path: nodes/BMIM_NTF2_CP2KSinglePoint/atoms.h5
+      md5: 9dc894f7d6a20c8cc26afc37c27e03ea
+      size: 63048
+    - path: nodes/BMIM_NTF2_CP2KSinglePoint/cp2k
+      md5: afc06e83d93d2c03b35c2f095a4d54ff.dir
+      size: 30786534
+      nfiles: 3
+  BMIM_PF6_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_PF6_Packmol
+    deps:
+    - path: nodes/BMIM_PF6_AddData/atoms.h5
+      md5: 622ddfcb7f8841f539c5566a81a88ab8
+      size: 27968
+    - path: nodes/BMIM_PF6_SmilesToAtoms/atoms.h5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_PF6_SmilesToAtoms/molecule.png
+      md5: fdd79327769e93e7b62bff4482f4f902
+      size: 7734
+    params:
+      params.yaml:
+        BMIM_PF6_Packmol:
+          box:
+          count:
+          - 1
+          - 1
+          data_ids:
+          density: 1380
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_PF6_Packmol/atoms.h5
+      md5: b1e2e06a18191654f70d8194a598fe7c
+      size: 27968
+    - path: nodes/BMIM_PF6_Packmol/packmol
+      md5: 60c9cda90d675cf40aa1a26ebaa78d1e.dir
+      size: 4061
+      nfiles: 4
+  BMIM_PF6_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_PF6_Packmol_1
+    deps:
+    - path: nodes/BMIM_PF6_Packmol/atoms.h5
+      md5: b1e2e06a18191654f70d8194a598fe7c
+      size: 27968
+    - path: nodes/BMIM_PF6_Packmol/packmol
+      md5: 60c9cda90d675cf40aa1a26ebaa78d1e.dir
+      size: 4061
+      nfiles: 4
+    params:
+      params.yaml:
+        BMIM_PF6_Packmol_1:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 1380
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_PF6_Packmol_1/atoms.h5
+      md5: 035ff74125f343be204c1a841391020b
+      size: 38208
+    - path: nodes/BMIM_PF6_Packmol_1/packmol
+      md5: d6409174bc40b10e9c96aa6dee51db53.dir
+      size: 20090
+      nfiles: 3
+  BMIM_PF6_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_PF6_CP2KSinglePoint
+    deps:
+    - path: GTH_BASIS_SETS
+      md5: 518e733a7344699cf0b4192bb97eb6a3
+      size: 119403
+    - path: GTH_POTENTIALS
+      md5: 3a35b03b26b8ba5cf6c1d849dba11f15
+      size: 128982
+    - path: dftd3.dat
+      md5: 88745bcc951a4bcdccc4d6bcfa78d105
+      size: 1959318
+    - path: nodes/BMIM_PF6_Packmol_1/atoms.h5
+      md5: 035ff74125f343be204c1a841391020b
+      size: 38208
+    - path: nodes/BMIM_PF6_Packmol_1/packmol
+      md5: d6409174bc40b10e9c96aa6dee51db53.dir
+      size: 20090
+      nfiles: 3
+    params:
+      cp2k.yaml:
+        force_eval:
+          method: quickstep
+          DFT:
+            mgrid:
+              cutoff: 1800.0
+              rel_cutoff: 120.0
+              ngrids: 5
+            QS:
+              eps_filter_matrix: 0.0
+              eps_pgf_orb: 0.0001
+            SCF:
+              scf_guess: restart
+              max_scf: 100
+              eps_scf: 1e-06
+              OT:
+                minimizer: diis
+                preconditioner: full_single_inverse
+              outer_scf:
+                max_scf: 100
+                eps_scf: 1e-06
+              print:
+                restart:
+                  each:
+                    QS_SCF: 0
+            XC:
+              xc_functional:
+                becke97:
+                  scale_c: 1.0
+                  scale_x: 1.0
+              vdw_potential:
+                pair_potential:
+                  type: dftd3(bj)
+                  parameter_file_name: dftd3.dat
+                  reference_functional: B97-3c
+                  r_cutoff: 7.93766
+                  calculate_c9_term: true
+                  short_range_correction: true
+                potential_type: pair_potential
+            print:
+              moments:
+                _: ON
+              hirshfeld:
+                _: ON
+            charge: 0
+            basis_set_file_name: GTH_BASIS_SETS
+            potential_file_name: GTH_POTENTIALS
+          subsys:
+            kind:
+              N:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+              C:
+                basis_set: TZVP-GTH-q4
+                potential: GTH-PBE-q4
+              H:
+                basis_set: TZVP-GTH-q1
+                potential: GTH-PBE-q1
+              B:
+                basis_set: TZVP-GTH-q3
+                potential: GTH-PBE-q3
+              F:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              Cl:
+                basis_set: TZVP-GTH-q7
+                potential: GTH-PBE-q7
+              O:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              S:
+                basis_set: TZVP-GTH-q6
+                potential: GTH-PBE-q6
+              P:
+                basis_set: TZVP-GTH-q5
+                potential: GTH-PBE-q5
+    outs:
+    - path: nodes/BMIM_PF6_CP2KSinglePoint/atoms.h5
+      md5: 94c07fc5e47520f58fc9b6598944f54c
+      size: 58568
+    - path: nodes/BMIM_PF6_CP2KSinglePoint/cp2k
+      md5: 1dd0998e5a245d06b61f7663bf4535b7.dir
+      size: 15999254
+      nfiles: 3
+  BMIM_NTF2_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_NTF2_x10
+    deps:
+    - path: nodes/BMIM_NTF2_CP2KSinglePoint/atoms.h5
+      md5: 9dc894f7d6a20c8cc26afc37c27e03ea
+      size: 63048
+    - path: nodes/BMIM_NTF2_CP2KSinglePoint/cp2k
+      md5: afc06e83d93d2c03b35c2f095a4d54ff.dir
+      size: 30786534
+      nfiles: 3
+    - path: nodes/BMIM_NTF2_Packmol_1/atoms.h5
+      md5: 40e619d3cedcb661b5fe5af2bab86052
+      size: 40768
+    - path: nodes/BMIM_NTF2_Packmol_1/packmol
+      md5: 960b51b3b454390bb3d09649ea1ceeb5.dir
+      size: 25002
+      nfiles: 3
+    params:
+      params.yaml:
+        BMIM_NTF2_x10:
+          data_id: 0
+          init_kwargs: {}
+          optimizer: BFGS
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.1
+    outs:
+    - path: nodes/BMIM_NTF2_x10/model_outs
+      md5: d63a842081ca5e748ae34db7910d6ea6.dir
+      size: 140409616
+      nfiles: 7
+    - path: nodes/BMIM_NTF2_x10/optim.traj
+      md5: 1695e17eb0cd4cef4b20b74ada97a8a5
+      size: 5829470
+  BMIM_PF6_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_PF6_x10
+    deps:
+    - path: nodes/BMIM_PF6_CP2KSinglePoint/atoms.h5
+      md5: 94c07fc5e47520f58fc9b6598944f54c
+      size: 58568
+    - path: nodes/BMIM_PF6_CP2KSinglePoint/cp2k
+      md5: 1dd0998e5a245d06b61f7663bf4535b7.dir
+      size: 15999254
+      nfiles: 3
+    - path: nodes/BMIM_PF6_Packmol_1/atoms.h5
+      md5: 035ff74125f343be204c1a841391020b
+      size: 38208
+    - path: nodes/BMIM_PF6_Packmol_1/packmol
+      md5: d6409174bc40b10e9c96aa6dee51db53.dir
+      size: 20090
+      nfiles: 3
+    params:
+      params.yaml:
+        BMIM_PF6_x10:
+          data_id: 0
+          init_kwargs: {}
+          optimizer: BFGS
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.1
+    outs:
+    - path: nodes/BMIM_PF6_x10/model_outs
+      md5: c40d3de9f58a63db273e8bccf997e53c.dir
+      size: 73729465
+      nfiles: 7
+    - path: nodes/BMIM_PF6_x10/optim.traj
+      md5: e69e12405399de71adc76a540de06f0a
+      size: 3420516
   BMIM_BF4_x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4_x10
     deps:
     - path: nodes/BMIM_BF4_CP2KSinglePoint/atoms.h5
-      md5: e16aa04b895ab726829e6709d0e72939
+      md5: 2b4eceee3a29c179b9bee9d45814ab7a
       size: 57448
     - path: nodes/BMIM_BF4_CP2KSinglePoint/cp2k
-      md5: f7497b78caefdfd2d5183141b9bf0503.dir
-      size: 12394676
+      md5: 8d1d1d92cbd1314b07203d6397acb448.dir
+      size: 12374364
       nfiles: 3
     - path: nodes/BMIM_BF4_Packmol_1/atoms.h5
-      md5: 004fbeec002d78da2d14ecd32a86e97f
+      md5: 9bf25b064e3bbdcf35a16004ff02f0e1
       size: 37568
     - path: nodes/BMIM_BF4_Packmol_1/packmol
-      md5: 803319a22bc76fdaa5ee9e53cbf58e82.dir
+      md5: d3f499e937fc9f22403f1b27e3acdf42.dir
       size: 18862
       nfiles: 3
     params:
@@ -215,9 +1350,9 @@ stages:
             fmax: 0.1
     outs:
     - path: nodes/BMIM_BF4_x10/model_outs
-      md5: 64154b0e8b723e2012f919ef5b20d512.dir
-      size: 59250627
+      md5: 827ecb6a20e65dbf5f37524e21a6596d.dir
+      size: 62510002
       nfiles: 7
     - path: nodes/BMIM_BF4_x10/optim.traj
-      md5: 21add6dbd140c480016df963f518db08
-      size: 3354545
+      md5: 6e1482ab0dc3bfcbdf4fa73c82d87e67
+      size: 4514796

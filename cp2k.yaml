@@ -61,3 +61,15 @@ force_eval:
       F:
         basis_set: TZVP-GTH-q7
         potential: GTH-PBE-q7
+      Cl:
+        basis_set: TZVP-GTH-q7
+        potential: GTH-PBE-q7
+      O:
+        basis_set: TZVP-GTH-q6
+        potential: GTH-PBE-q6
+      S:
+        basis_set: TZVP-GTH-q6
+        potential: GTH-PBE-q6
+      P:
+        basis_set: TZVP-GTH-q5
+        potential: GTH-PBE-q5

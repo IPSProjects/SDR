@@ -60,3 +60,308 @@ stages:
     outs:
     - nodes/BMIM_BF4_x10/model_outs
     - nodes/BMIM_BF4_x10/optim.traj
+  BMIM_Cl_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_Cl_SmilesToAtoms
+    params:
+    - BMIM_Cl_SmilesToAtoms
+    outs:
+    - nodes/BMIM_Cl_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_Cl_SmilesToAtoms/molecule.png
+  BMIM_Cl_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_Cl_SmilesToAtoms_1
+    params:
+    - BMIM_Cl_SmilesToAtoms_1
+    outs:
+    - nodes/BMIM_Cl_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_Cl_SmilesToAtoms_1/molecule.png
+  BMIM_Cl_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_Cl_Packmol
+    deps:
+    - nodes/BMIM_Cl_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_Cl_SmilesToAtoms/molecule.png
+    - nodes/BMIM_Cl_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_Cl_SmilesToAtoms_1/molecule.png
+    params:
+    - BMIM_Cl_Packmol
+    outs:
+    - nodes/BMIM_Cl_Packmol/atoms.h5
+    - nodes/BMIM_Cl_Packmol/packmol
+  BMIM_Cl_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_Cl_Packmol_1
+    deps:
+    - nodes/BMIM_Cl_Packmol/atoms.h5
+    - nodes/BMIM_Cl_Packmol/packmol
+    params:
+    - BMIM_Cl_Packmol_1
+    outs:
+    - nodes/BMIM_Cl_Packmol_1/atoms.h5
+    - nodes/BMIM_Cl_Packmol_1/packmol
+  BMIM_Cl_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_Cl_CP2KSinglePoint
+    deps:
+    - GTH_BASIS_SETS
+    - GTH_POTENTIALS
+    - dftd3.dat
+    - nodes/BMIM_Cl_Packmol_1/atoms.h5
+    - nodes/BMIM_Cl_Packmol_1/packmol
+    params:
+    - cp2k.yaml:
+    outs:
+    - nodes/BMIM_Cl_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_Cl_CP2KSinglePoint/cp2k
+  BMIM_Cl_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_Cl_x10
+    deps:
+    - nodes/BMIM_Cl_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_Cl_CP2KSinglePoint/cp2k
+    - nodes/BMIM_Cl_Packmol_1/atoms.h5
+    - nodes/BMIM_Cl_Packmol_1/packmol
+    params:
+    - BMIM_Cl_x10
+    outs:
+    - nodes/BMIM_Cl_x10/model_outs
+    - nodes/BMIM_Cl_x10/optim.traj
+  BMIM_FSI_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_FSI_SmilesToAtoms
+    params:
+    - BMIM_FSI_SmilesToAtoms
+    outs:
+    - nodes/BMIM_FSI_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_FSI_SmilesToAtoms/molecule.png
+  BMIM_FSI_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_FSI_SmilesToAtoms_1
+    params:
+    - BMIM_FSI_SmilesToAtoms_1
+    outs:
+    - nodes/BMIM_FSI_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_FSI_SmilesToAtoms_1/molecule.png
+  BMIM_FSI_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_FSI_Packmol
+    deps:
+    - nodes/BMIM_FSI_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_FSI_SmilesToAtoms/molecule.png
+    - nodes/BMIM_FSI_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_FSI_SmilesToAtoms_1/molecule.png
+    params:
+    - BMIM_FSI_Packmol
+    outs:
+    - nodes/BMIM_FSI_Packmol/atoms.h5
+    - nodes/BMIM_FSI_Packmol/packmol
+  BMIM_FSI_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_FSI_Packmol_1
+    deps:
+    - nodes/BMIM_FSI_Packmol/atoms.h5
+    - nodes/BMIM_FSI_Packmol/packmol
+    params:
+    - BMIM_FSI_Packmol_1
+    outs:
+    - nodes/BMIM_FSI_Packmol_1/atoms.h5
+    - nodes/BMIM_FSI_Packmol_1/packmol
+  BMIM_FSI_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_FSI_CP2KSinglePoint
+    deps:
+    - GTH_BASIS_SETS
+    - GTH_POTENTIALS
+    - dftd3.dat
+    - nodes/BMIM_FSI_Packmol_1/atoms.h5
+    - nodes/BMIM_FSI_Packmol_1/packmol
+    params:
+    - cp2k.yaml:
+    outs:
+    - nodes/BMIM_FSI_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_FSI_CP2KSinglePoint/cp2k
+  BMIM_FSI_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_FSI_x10
+    deps:
+    - nodes/BMIM_FSI_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_FSI_CP2KSinglePoint/cp2k
+    - nodes/BMIM_FSI_Packmol_1/atoms.h5
+    - nodes/BMIM_FSI_Packmol_1/packmol
+    params:
+    - BMIM_FSI_x10
+    outs:
+    - nodes/BMIM_FSI_x10/model_outs
+    - nodes/BMIM_FSI_x10/optim.traj
+  BMIM_NTF2_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_NTF2_SmilesToAtoms
+    params:
+    - BMIM_NTF2_SmilesToAtoms
+    outs:
+    - nodes/BMIM_NTF2_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_NTF2_SmilesToAtoms/molecule.png
+  BMIM_NTF2_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_NTF2_SmilesToAtoms_1
+    params:
+    - BMIM_NTF2_SmilesToAtoms_1
+    outs:
+    - nodes/BMIM_NTF2_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_NTF2_SmilesToAtoms_1/molecule.png
+  BMIM_NTF2_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_NTF2_Packmol
+    deps:
+    - nodes/BMIM_NTF2_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_NTF2_SmilesToAtoms/molecule.png
+    - nodes/BMIM_NTF2_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_NTF2_SmilesToAtoms_1/molecule.png
+    params:
+    - BMIM_NTF2_Packmol
+    outs:
+    - nodes/BMIM_NTF2_Packmol/atoms.h5
+    - nodes/BMIM_NTF2_Packmol/packmol
+  BMIM_NTF2_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_NTF2_Packmol_1
+    deps:
+    - nodes/BMIM_NTF2_Packmol/atoms.h5
+    - nodes/BMIM_NTF2_Packmol/packmol
+    params:
+    - BMIM_NTF2_Packmol_1
+    outs:
+    - nodes/BMIM_NTF2_Packmol_1/atoms.h5
+    - nodes/BMIM_NTF2_Packmol_1/packmol
+  BMIM_NTF2_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_NTF2_CP2KSinglePoint
+    deps:
+    - GTH_BASIS_SETS
+    - GTH_POTENTIALS
+    - dftd3.dat
+    - nodes/BMIM_NTF2_Packmol_1/atoms.h5
+    - nodes/BMIM_NTF2_Packmol_1/packmol
+    params:
+    - cp2k.yaml:
+    outs:
+    - nodes/BMIM_NTF2_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_NTF2_CP2KSinglePoint/cp2k
+  BMIM_NTF2_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_NTF2_x10
+    deps:
+    - nodes/BMIM_NTF2_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_NTF2_CP2KSinglePoint/cp2k
+    - nodes/BMIM_NTF2_Packmol_1/atoms.h5
+    - nodes/BMIM_NTF2_Packmol_1/packmol
+    params:
+    - BMIM_NTF2_x10
+    outs:
+    - nodes/BMIM_NTF2_x10/model_outs
+    - nodes/BMIM_NTF2_x10/optim.traj
+  BMIM_PF6_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_PF6_SmilesToAtoms
+    params:
+    - BMIM_PF6_SmilesToAtoms
+    outs:
+    - nodes/BMIM_PF6_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_PF6_SmilesToAtoms/molecule.png
+  BMIM_PF6_AddData:
+    cmd: zntrack run ipsuite.nodes.AddData --name BMIM_PF6_AddData
+    deps:
+    - data/pf6.xyz
+    params:
+    - BMIM_PF6_AddData
+    outs:
+    - nodes/BMIM_PF6_AddData/atoms.h5
+  BMIM_PF6_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_PF6_Packmol
+    deps:
+    - nodes/BMIM_PF6_AddData/atoms.h5
+    - nodes/BMIM_PF6_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_PF6_SmilesToAtoms/molecule.png
+    params:
+    - BMIM_PF6_Packmol
+    outs:
+    - nodes/BMIM_PF6_Packmol/atoms.h5
+    - nodes/BMIM_PF6_Packmol/packmol
+  BMIM_PF6_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_PF6_Packmol_1
+    deps:
+    - nodes/BMIM_PF6_Packmol/atoms.h5
+    - nodes/BMIM_PF6_Packmol/packmol
+    params:
+    - BMIM_PF6_Packmol_1
+    outs:
+    - nodes/BMIM_PF6_Packmol_1/atoms.h5
+    - nodes/BMIM_PF6_Packmol_1/packmol
+  BMIM_PF6_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_PF6_CP2KSinglePoint
+    deps:
+    - GTH_BASIS_SETS
+    - GTH_POTENTIALS
+    - dftd3.dat
+    - nodes/BMIM_PF6_Packmol_1/atoms.h5
+    - nodes/BMIM_PF6_Packmol_1/packmol
+    params:
+    - cp2k.yaml:
+    outs:
+    - nodes/BMIM_PF6_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_PF6_CP2KSinglePoint/cp2k
+  BMIM_PF6_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_PF6_x10
+    deps:
+    - nodes/BMIM_PF6_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_PF6_CP2KSinglePoint/cp2k
+    - nodes/BMIM_PF6_Packmol_1/atoms.h5
+    - nodes/BMIM_PF6_Packmol_1/packmol
+    params:
+    - BMIM_PF6_x10
+    outs:
+    - nodes/BMIM_PF6_x10/model_outs
+    - nodes/BMIM_PF6_x10/optim.traj
+  BMIM_NCN2_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_NCN2_SmilesToAtoms
+    params:
+    - BMIM_NCN2_SmilesToAtoms
+    outs:
+    - nodes/BMIM_NCN2_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_NCN2_SmilesToAtoms/molecule.png
+  BMIM_NCN2_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_NCN2_SmilesToAtoms_1
+    params:
+    - BMIM_NCN2_SmilesToAtoms_1
+    outs:
+    - nodes/BMIM_NCN2_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_NCN2_SmilesToAtoms_1/molecule.png
+  BMIM_NCN2_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_NCN2_Packmol
+    deps:
+    - nodes/BMIM_NCN2_SmilesToAtoms/atoms.h5
+    - nodes/BMIM_NCN2_SmilesToAtoms/molecule.png
+    - nodes/BMIM_NCN2_SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_NCN2_SmilesToAtoms_1/molecule.png
+    params:
+    - BMIM_NCN2_Packmol
+    outs:
+    - nodes/BMIM_NCN2_Packmol/atoms.h5
+    - nodes/BMIM_NCN2_Packmol/packmol
+  BMIM_NCN2_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_NCN2_Packmol_1
+    deps:
+    - nodes/BMIM_NCN2_Packmol/atoms.h5
+    - nodes/BMIM_NCN2_Packmol/packmol
+    params:
+    - BMIM_NCN2_Packmol_1
+    outs:
+    - nodes/BMIM_NCN2_Packmol_1/atoms.h5
+    - nodes/BMIM_NCN2_Packmol_1/packmol
+  BMIM_NCN2_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_NCN2_CP2KSinglePoint
+    deps:
+    - GTH_BASIS_SETS
+    - GTH_POTENTIALS
+    - dftd3.dat
+    - nodes/BMIM_NCN2_Packmol_1/atoms.h5
+    - nodes/BMIM_NCN2_Packmol_1/packmol
+    params:
+    - cp2k.yaml:
+    outs:
+    - nodes/BMIM_NCN2_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_NCN2_CP2KSinglePoint/cp2k
+  BMIM_NCN2_x10:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_NCN2_x10
+    deps:
+    - nodes/BMIM_NCN2_CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_NCN2_CP2KSinglePoint/cp2k
+    - nodes/BMIM_NCN2_Packmol_1/atoms.h5
+    - nodes/BMIM_NCN2_Packmol_1/packmol
+    params:
+    - BMIM_NCN2_x10
+    outs:
+    - nodes/BMIM_NCN2_x10/model_outs
+    - nodes/BMIM_NCN2_x10/optim.traj
