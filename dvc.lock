@@ -16,6 +16,9 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 93a6639d8eaa7c8e62c8481e996c8d06
       size: 2795
+    - path: nodes/SmilesToAtoms/uuid
+      md5: d7e4dc22d610907ac5ae020d4d4346cc
+      size: 36
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
@@ -25,6 +28,10 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 93a6639d8eaa7c8e62c8481e996c8d06
       size: 2795
+    - path: nodes/SmilesToAtoms/uuid
+      hash: md5
+      md5: d7e4dc22d610907ac5ae020d4d4346cc
+      size: 36
     params:
       params.yaml:
         Packmol:
@@ -42,6 +49,10 @@ stages:
       md5: 222a03a391988ec4235c4a3f68554653.dir
       size: 2192
       nfiles: 3
+    - path: nodes/Packmol/uuid
+      hash: md5
+      md5: 0b45a2cbba4f30348424f499e5aba501
+      size: 36
   CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
     deps:
@@ -61,6 +72,10 @@ stages:
       md5: 222a03a391988ec4235c4a3f68554653.dir
       size: 2192
       nfiles: 3
+    - path: nodes/Packmol/uuid
+      hash: md5
+      md5: 0b45a2cbba4f30348424f499e5aba501
+      size: 36
     params:
       cp2k.yaml:
         force_eval:
@@ -126,6 +141,10 @@ stages:
       md5: d4ad96d6ba4c6bd6a6f03f3b7491392a.dir
       size: 177240
       nfiles: 3
+    - path: nodes/CP2KSinglePoint/uuid
+      hash: md5
+      md5: e4191fd8159c5b4e55e6524c83699ebb
+      size: 36
   H2O-x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O-x10
     deps:
@@ -136,6 +155,10 @@ stages:
       md5: d4ad96d6ba4c6bd6a6f03f3b7491392a.dir
       size: 177240
       nfiles: 3
+    - path: nodes/CP2KSinglePoint/uuid
+      hash: md5
+      md5: e4191fd8159c5b4e55e6524c83699ebb
+      size: 36
     - path: nodes/Packmol/atoms.h5
       md5: 963c575495ab9f1e1853d9704baf3543
       size: 27968
@@ -143,6 +166,10 @@ stages:
       md5: 222a03a391988ec4235c4a3f68554653.dir
       size: 2192
       nfiles: 3
+    - path: nodes/Packmol/uuid
+      hash: md5
+      md5: 0b45a2cbba4f30348424f499e5aba501
+      size: 36
     params:
       params.yaml:
         H2O-x10:
@@ -163,3 +190,7 @@ stages:
     - path: nodes/H2O-x10/optim.traj
       md5: 613cdffa9d2b7da9aa72e9fb145f1f67
       size: 382007
+    - path: nodes/H2O-x10/uuid
+      hash: md5
+      md5: dc14ff6cc8750a78b974789885fd854a
+      size: 36

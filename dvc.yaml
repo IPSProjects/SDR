@@ -6,16 +6,19 @@ stages:
     outs:
     - nodes/SmilesToAtoms/atoms.h5
     - nodes/SmilesToAtoms/molecule.png
+    - nodes/SmilesToAtoms/uuid
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
     - nodes/SmilesToAtoms/atoms.h5
     - nodes/SmilesToAtoms/molecule.png
+    - nodes/SmilesToAtoms/uuid
     params:
     - Packmol
     outs:
     - nodes/Packmol/atoms.h5
     - nodes/Packmol/packmol
+    - nodes/Packmol/uuid
   CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
     deps:
@@ -24,20 +27,25 @@ stages:
     - dftd3.dat
     - nodes/Packmol/atoms.h5
     - nodes/Packmol/packmol
+    - nodes/Packmol/uuid
     params:
     - cp2k.yaml:
     outs:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
+    - nodes/CP2KSinglePoint/uuid
   H2O-x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O-x10
     deps:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
+    - nodes/CP2KSinglePoint/uuid
     - nodes/Packmol/atoms.h5
     - nodes/Packmol/packmol
+    - nodes/Packmol/uuid
     params:
     - H2O-x10
     outs:
     - nodes/H2O-x10/model_outs
     - nodes/H2O-x10/optim.traj
+    - nodes/H2O-x10/uuid
