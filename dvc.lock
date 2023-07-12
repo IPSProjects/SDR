@@ -16,9 +16,10 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 93a6639d8eaa7c8e62c8481e996c8d06
       size: 2795
-    - path: nodes/SmilesToAtoms/uuid
-      md5: d7e4dc22d610907ac5ae020d4d4346cc
-      size: 36
+    - path: nodes/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 65b70d566512970b80e688fa184427f3
+      size: 48
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
@@ -28,10 +29,10 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 93a6639d8eaa7c8e62c8481e996c8d06
       size: 2795
-    - path: nodes/SmilesToAtoms/uuid
+    - path: nodes/SmilesToAtoms/node-meta.json
       hash: md5
-      md5: d7e4dc22d610907ac5ae020d4d4346cc
-      size: 36
+      md5: 65b70d566512970b80e688fa184427f3
+      size: 48
     params:
       params.yaml:
         Packmol:
@@ -45,14 +46,14 @@ stages:
     - path: nodes/Packmol/atoms.h5
       md5: 963c575495ab9f1e1853d9704baf3543
       size: 27968
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: b13b7269f5151725caac468230e33e2c
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 222a03a391988ec4235c4a3f68554653.dir
       size: 2192
       nfiles: 3
-    - path: nodes/Packmol/uuid
-      hash: md5
-      md5: 0b45a2cbba4f30348424f499e5aba501
-      size: 36
   CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
     deps:
@@ -68,14 +69,14 @@ stages:
     - path: nodes/Packmol/atoms.h5
       md5: 963c575495ab9f1e1853d9704baf3543
       size: 27968
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: b13b7269f5151725caac468230e33e2c
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 222a03a391988ec4235c4a3f68554653.dir
       size: 2192
       nfiles: 3
-    - path: nodes/Packmol/uuid
-      hash: md5
-      md5: 0b45a2cbba4f30348424f499e5aba501
-      size: 36
     params:
       cp2k.yaml:
         force_eval:
@@ -141,10 +142,10 @@ stages:
       md5: d4ad96d6ba4c6bd6a6f03f3b7491392a.dir
       size: 177240
       nfiles: 3
-    - path: nodes/CP2KSinglePoint/uuid
+    - path: nodes/CP2KSinglePoint/node-meta.json
       hash: md5
-      md5: e4191fd8159c5b4e55e6524c83699ebb
-      size: 36
+      md5: 2c914aed400c25c6e64234d7c7f5a742
+      size: 48
   H2O-x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O-x10
     deps:
@@ -155,25 +156,26 @@ stages:
       md5: d4ad96d6ba4c6bd6a6f03f3b7491392a.dir
       size: 177240
       nfiles: 3
-    - path: nodes/CP2KSinglePoint/uuid
+    - path: nodes/CP2KSinglePoint/node-meta.json
       hash: md5
-      md5: e4191fd8159c5b4e55e6524c83699ebb
-      size: 36
+      md5: 2c914aed400c25c6e64234d7c7f5a742
+      size: 48
     - path: nodes/Packmol/atoms.h5
       md5: 963c575495ab9f1e1853d9704baf3543
       size: 27968
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: b13b7269f5151725caac468230e33e2c
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 222a03a391988ec4235c4a3f68554653.dir
       size: 2192
       nfiles: 3
-    - path: nodes/Packmol/uuid
-      hash: md5
-      md5: 0b45a2cbba4f30348424f499e5aba501
-      size: 36
     params:
       params.yaml:
         H2O-x10:
           data_id: 0
+          dump_rate: 1000
           init_kwargs: {}
           optimizer: BFGS
           repeat:
@@ -187,10 +189,11 @@ stages:
       md5: a1133a504df8710afaea3d7f51853e9e.dir
       size: 1460133
       nfiles: 7
-    - path: nodes/H2O-x10/optim.traj
-      md5: 613cdffa9d2b7da9aa72e9fb145f1f67
-      size: 382007
-    - path: nodes/H2O-x10/uuid
+    - path: nodes/H2O-x10/node-meta.json
       hash: md5
-      md5: dc14ff6cc8750a78b974789885fd854a
-      size: 36
+      md5: 0e692867420be5ed4d83df2cce758a99
+      size: 48
+    - path: nodes/H2O-x10/trajectory.h5
+      hash: md5
+      md5: 4ee63036a6a3634f0f7ca68cd6f04a7f
+      size: 254848

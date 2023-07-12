@@ -68,6 +68,7 @@
         "wfn_restart_node": null
     },
     "H2O-x10": {
+        "checker_list": null,
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -107,9 +108,9 @@
             "_type": "pathlib.Path",
             "value": "$nwd$/model_outs"
         },
-        "traj": {
+        "traj_file": {
             "_type": "pathlib.Path",
-            "value": "$nwd$/optim.traj"
+            "value": "$nwd$/trajectory.h5"
         }
     }
 }

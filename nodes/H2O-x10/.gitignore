@@ -1,3 +1,2 @@
 /model_outs
-/optim.traj
-/uuid
+/trajectory.h5
