@@ -116,6 +116,7 @@
         "wfn_restart_node": null
     },
     "BMIM_BF4_x10": {
+        "checker_list": null,
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -155,9 +156,9 @@
             "_type": "pathlib.Path",
             "value": "$nwd$/model_outs"
         },
-        "traj": {
+        "traj_file": {
             "_type": "pathlib.Path",
-            "value": "$nwd$/optim.traj"
+            "value": "$nwd$/trajectory.h5"
         }
     },
     "BMIM_Cl_SmilesToAtoms": {
@@ -277,6 +278,7 @@
         "wfn_restart_node": null
     },
     "BMIM_Cl_x10": {
+        "checker_list": null,
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -316,170 +318,9 @@
             "_type": "pathlib.Path",
             "value": "$nwd$/model_outs"
         },
-        "traj": {
+        "traj_file": {
             "_type": "pathlib.Path",
-            "value": "$nwd$/optim.traj"
-        }
-    },
-    "BMIM_FSI_SmilesToAtoms": {
-        "image": {
-            "_type": "pathlib.Path",
-            "value": "$nwd$/molecule.png"
-        }
-    },
-    "BMIM_FSI_SmilesToAtoms_1": {
-        "image": {
-            "_type": "pathlib.Path",
-            "value": "$nwd$/molecule.png"
-        }
-    },
-    "BMIM_FSI_Packmol": {
-        "data": [
-            {
-                "_type": "znflow.Connection",
-                "value": {
-                    "instance": {
-                        "_type": "zntrack.Node",
-                        "value": {
-                            "module": "ipsuite.nodes",
-                            "cls": "SmilesToAtoms",
-                            "name": "BMIM_FSI_SmilesToAtoms",
-                            "remote": null,
-                            "rev": null
-                        }
-                    },
-                    "attribute": "atoms",
-                    "item": null
-                }
-            },
-            {
-                "_type": "znflow.Connection",
-                "value": {
-                    "instance": {
-                        "_type": "zntrack.Node",
-                        "value": {
-                            "module": "ipsuite.nodes",
-                            "cls": "SmilesToAtoms",
-                            "name": "BMIM_FSI_SmilesToAtoms_1",
-                            "remote": null,
-                            "rev": null
-                        }
-                    },
-                    "attribute": "atoms",
-                    "item": null
-                }
-            }
-        ],
-        "structures": {
-            "_type": "pathlib.Path",
-            "value": "$nwd$/packmol"
-        }
-    },
-    "BMIM_FSI_Packmol_1": {
-        "data": [
-            {
-                "_type": "znflow.Connection",
-                "value": {
-                    "instance": {
-                        "_type": "zntrack.Node",
-                        "value": {
-                            "module": "ipsuite.nodes",
-                            "cls": "Packmol",
-                            "name": "BMIM_FSI_Packmol",
-                            "remote": null,
-                            "rev": null
-                        }
-                    },
-                    "attribute": "atoms",
-                    "item": null
-                }
-            }
-        ],
-        "structures": {
-            "_type": "pathlib.Path",
-            "value": "$nwd$/packmol"
-        }
-    },
-    "BMIM_FSI_CP2KSinglePoint": {
-        "cp2k_directory": {
-            "_type": "pathlib.Path",
-            "value": "$nwd$/cp2k"
-        },
-        "cp2k_files": [
-            "GTH_BASIS_SETS",
-            "GTH_POTENTIALS",
-            "dftd3.dat"
-        ],
-        "cp2k_params": "cp2k.yaml",
-        "cp2k_shell": "cp2k_shell.ssmp",
-        "data": {
-            "_type": "znflow.Connection",
-            "value": {
-                "instance": {
-                    "_type": "zntrack.Node",
-                    "value": {
-                        "module": "ipsuite.nodes",
-                        "cls": "Packmol",
-                        "name": "BMIM_FSI_Packmol_1",
-                        "remote": null,
-                        "rev": null
-                    }
-                },
-                "attribute": "atoms",
-                "item": null
-            }
-        },
-        "data_file": null,
-        "output_file": {
-            "_type": "pathlib.Path",
-            "value": "$nwd$/atoms.h5"
-        },
-        "wfn_restart_file": null,
-        "wfn_restart_node": null
-    },
-    "BMIM_FSI_x10": {
-        "data": {
-            "_type": "znflow.Connection",
-            "value": {
-                "instance": {
-                    "_type": "zntrack.Node",
-                    "value": {
-                        "module": "ipsuite.nodes",
-                        "cls": "Packmol",
-                        "name": "BMIM_FSI_Packmol_1",
-                        "remote": null,
-                        "rev": null
-                    }
-                },
-                "attribute": "atoms",
-                "item": null
-            }
-        },
-        "data_file": null,
-        "model": {
-            "_type": "znflow.Connection",
-            "value": {
-                "instance": {
-                    "_type": "zntrack.Node",
-                    "value": {
-                        "module": "ipsuite.nodes",
-                        "cls": "CP2KSinglePoint",
-                        "name": "BMIM_FSI_CP2KSinglePoint",
-                        "remote": null,
-                        "rev": null
-                    }
-                },
-                "attribute": null,
-                "item": null
-            }
-        },
-        "model_outs": {
-            "_type": "pathlib.Path",
-            "value": "$nwd$/model_outs"
-        },
-        "traj": {
-            "_type": "pathlib.Path",
-            "value": "$nwd$/optim.traj"
+            "value": "$nwd$/trajectory.h5"
         }
     },
     "BMIM_NTF2_SmilesToAtoms": {
@@ -599,6 +440,7 @@
         "wfn_restart_node": null
     },
     "BMIM_NTF2_x10": {
+        "checker_list": null,
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -638,9 +480,9 @@
             "_type": "pathlib.Path",
             "value": "$nwd$/model_outs"
         },
-        "traj": {
+        "traj_file": {
             "_type": "pathlib.Path",
-            "value": "$nwd$/optim.traj"
+            "value": "$nwd$/trajectory.h5"
         }
     },
     "BMIM_PF6_SmilesToAtoms": {
@@ -757,6 +599,7 @@
         "wfn_restart_node": null
     },
     "BMIM_PF6_x10": {
+        "checker_list": null,
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -796,9 +639,9 @@
             "_type": "pathlib.Path",
             "value": "$nwd$/model_outs"
         },
-        "traj": {
+        "traj_file": {
             "_type": "pathlib.Path",
-            "value": "$nwd$/optim.traj"
+            "value": "$nwd$/trajectory.h5"
         }
     },
     "BMIM_NCN2_SmilesToAtoms": {
@@ -918,6 +761,7 @@
         "wfn_restart_node": null
     },
     "BMIM_NCN2_x10": {
+        "checker_list": null,
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -957,9 +801,9 @@
             "_type": "pathlib.Path",
             "value": "$nwd$/model_outs"
         },
-        "traj": {
+        "traj_file": {
             "_type": "pathlib.Path",
-            "value": "$nwd$/optim.traj"
+            "value": "$nwd$/trajectory.h5"
         }
     }
 }
