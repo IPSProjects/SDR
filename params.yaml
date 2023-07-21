@@ -1,0 +1,23 @@
+ASEGeoOpt:
+    data_id: 0
+    dump_rate: 1000
+    init_kwargs: {}
+    optimizer: BFGS
+    repeat:
+    - 1
+    - 1
+    - 1
+    run_kwargs:
+        fmax: 0.1
+Packmol:
+    box: null
+    count:
+    - 38
+    data_ids: null
+    density: 1095.2
+    tolerance: 2.0
+SmilesToAtoms:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: CS(=O)C

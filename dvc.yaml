@@ -1,0 +1,59 @@
+stages:
+  SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms
+    params:
+    - SmilesToAtoms
+    outs:
+    - nodes/SmilesToAtoms/atoms.h5
+    - nodes/SmilesToAtoms/molecule.png
+    metrics:
+    - nodes/SmilesToAtoms/node-meta.json:
+        cache: false
+  Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
+    deps:
+    - nodes/SmilesToAtoms/atoms.h5
+    - nodes/SmilesToAtoms/molecule.png
+    - nodes/SmilesToAtoms/node-meta.json
+    params:
+    - Packmol
+    outs:
+    - nodes/Packmol/atoms.h5
+    - nodes/Packmol/packmol
+    metrics:
+    - nodes/Packmol/node-meta.json:
+        cache: false
+  CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
+    deps:
+    - BASIS_MOLOPT
+    - GTH_POTENTIALS
+    - dftd3.dat
+    - nodes/Packmol/atoms.h5
+    - nodes/Packmol/node-meta.json
+    - nodes/Packmol/packmol
+    params:
+    - cp2k.yaml:
+    outs:
+    - nodes/CP2KSinglePoint/atoms.h5
+    - nodes/CP2KSinglePoint/cp2k
+    metrics:
+    - nodes/CP2KSinglePoint/node-meta.json:
+        cache: false
+  ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name ASEGeoOpt
+    deps:
+    - nodes/CP2KSinglePoint/atoms.h5
+    - nodes/CP2KSinglePoint/cp2k
+    - nodes/CP2KSinglePoint/node-meta.json
+    - nodes/Packmol/atoms.h5
+    - nodes/Packmol/node-meta.json
+    - nodes/Packmol/packmol
+    params:
+    - ASEGeoOpt
+    outs:
+    - nodes/ASEGeoOpt/model_outs
+    - nodes/ASEGeoOpt/trajectory.h5
+    metrics:
+    - nodes/ASEGeoOpt/node-meta.json:
+        cache: false

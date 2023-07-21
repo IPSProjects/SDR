@@ -1,0 +1,156 @@
+schema: '2.0'
+stages:
+  SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name SmilesToAtoms
+    params:
+      params.yaml:
+        SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CS(=O)C
+    outs:
+    - path: nodes/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: a03709d593daf29f29bab8159bde4145
+      size: 27968
+    - path: nodes/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: beb2db71f51b3ceeb4f5cbf9dce9620a
+      size: 5822
+    - path: nodes/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 3bba4361434abe7e7bfd75844b976dce
+      size: 48
+  Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
+    deps:
+    - path: nodes/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: a03709d593daf29f29bab8159bde4145
+      size: 27968
+    - path: nodes/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: beb2db71f51b3ceeb4f5cbf9dce9620a
+      size: 5822
+    - path: nodes/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 3bba4361434abe7e7bfd75844b976dce
+      size: 48
+    params:
+      params.yaml:
+        Packmol:
+          box:
+          count:
+          - 38
+          data_ids:
+          density: 1095.2
+          tolerance: 2.0
+    outs:
+    - path: nodes/Packmol/atoms.h5
+      hash: md5
+      md5: c8d2c5d5bc5a0010a21d9f299e99a1bf
+      size: 40128
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: 0ac82bdd2c7215d02c98642b87df3d1f
+      size: 48
+    - path: nodes/Packmol/packmol
+      hash: md5
+      md5: 94bf0223080c635910a3d5d8ae456c46.dir
+      size: 22174
+      nfiles: 3
+  CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
+    deps:
+    - path: BASIS_MOLOPT
+      hash: md5
+      md5: 4e877f2fa6a2b401ae1516a48f977f2b
+      size: 126074
+    - path: GTH_POTENTIALS
+      hash: md5
+      md5: 3a35b03b26b8ba5cf6c1d849dba11f15
+      size: 128982
+    - path: dftd3.dat
+      hash: md5
+      md5: 88745bcc951a4bcdccc4d6bcfa78d105
+      size: 1959318
+    - path: nodes/Packmol/atoms.h5
+      hash: md5
+      md5: c8d2c5d5bc5a0010a21d9f299e99a1bf
+      size: 40128
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: 0ac82bdd2c7215d02c98642b87df3d1f
+      size: 48
+    - path: nodes/Packmol/packmol
+      hash: md5
+      md5: 94bf0223080c635910a3d5d8ae456c46.dir
+      size: 22174
+      nfiles: 3
+    params:
+      cp2k.yaml:
+        force_eval:
+          method: quickstep
+          DFT:
+            mgrid:
+              cutoff: 500.0
+              rel_cutoff: 80.0
+              ngrids: 5
+            QS:
+              eps_filter_matrix: 0.0
+              eps_pgf_orb: 0.0001
+            SCF:
+              scf_guess: restart
+              max_scf: 100
+              eps_scf: 1e-06
+              OT:
+                minimizer: diis
+                preconditioner: full_single_inverse
+              outer_scf:
+                max_scf: 100
+                eps_scf: 1e-06
+              print:
+                restart:
+                  each:
+                    QS_SCF: 0
+            XC:
+              xc_functional:
+                _: BLYP
+              vdw_potential:
+                pair_potential:
+                  type: DFTD3
+                  parameter_file_name: dftd3.dat
+                  reference_functional: BLYP
+                  r_cutoff: 18
+                potential_type: pair_potential
+            basis_set_file_name: BASIS_MOLOPT
+            potential_file_name: GTH_POTENTIALS
+          subsys:
+            kind:
+              O:
+                basis_set: TZV2P-MOLOPT-GTH-q6
+                potential: GTH-BLYP-q6
+              C:
+                basis_set: TZV2P-MOLOPT-GTH-q4
+                potential: GTH-BLYP-q4
+              H:
+                basis_set: TZV2P-MOLOPT-GTH-q1
+                potential: GTH-BLYP-q1
+              S:
+                basis_set: TZV2P-MOLOPT-GTH-q6
+                potential: GTH-BLYP-q6
+    outs:
+    - path: nodes/CP2KSinglePoint/atoms.h5
+      hash: md5
+      md5: 933331b0169ed5d19535cb1fe2e79485
+      size: 61928
+    - path: nodes/CP2KSinglePoint/cp2k
+      hash: md5
+      md5: 1bffe2a5d34434d9363d7d4d1547a810.dir
+      size: 21603950
+      nfiles: 3
+    - path: nodes/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: 27e6494960351dd9ac9730f61130ed99
+      size: 48
