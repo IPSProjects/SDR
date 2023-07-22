@@ -8,7 +8,7 @@ ASEGeoOpt:
     - 1
     - 1
     run_kwargs:
-        fmax: 0.1
+        fmax: 0.5
 Packmol:
     box: null
     count:

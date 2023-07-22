@@ -1,0 +1,77 @@
+'BASIS_MOLOPT.dvc' didn't change, skipping
+'GTH_POTENTIALS.dvc' didn't change, skipping
+'dftd3.dat.dvc' didn't change, skipping
+Stage 'SmilesToAtoms' didn't change, skipping
+Stage 'Packmol' didn't change, skipping
+Stage 'CP2KSinglePoint' didn't change, skipping
+Running stage 'ASEGeoOpt':
+> zntrack run ipsuite.nodes.ASEGeoOpt --name ASEGeoOpt
+2023-07-21 22:05:06,917 (DEBUG): Welcome to IPS - the Interatomic Potential Suite!
+      Step     Time          Energy         fmax
+BFGS:    0 22:06:14   -42326.299202       86.7391
+BFGS:    1 22:19:43   -42356.476679       22.8835
+BFGS:    2 22:25:22   -42384.899647       17.2523
+BFGS:    3 22:30:52   -42404.788236       10.0981
+BFGS:    4 22:34:21   -42418.133943        6.3713
+BFGS:    5 22:37:11   -42428.002274        4.2842
+BFGS:    6 22:39:47   -42434.605384        2.6138
+BFGS:    7 22:42:29   -42438.843707        4.0629
+BFGS:    8 22:45:04   -42442.262828        2.8003
+BFGS:    9 22:47:27   -42444.668420        2.2929
+BFGS:   10 22:49:45   -42447.310864        4.7986
+BFGS:   11 22:52:02   -42449.951185        2.9489
+BFGS:   12 22:54:19   -42452.377113        1.7967
+BFGS:   13 22:56:37   -42453.647330        1.5999
+BFGS:   14 22:58:54   -42454.960911        2.5143
+BFGS:   15 23:01:02   -42456.500430        1.3983
+BFGS:   16 23:03:20   -42457.555224        1.4625
+BFGS:   17 23:05:26   -42458.499366        1.2413
+BFGS:   18 23:07:35   -42459.356582        1.1278
+BFGS:   19 23:09:53   -42460.608565        1.6065
+BFGS:   20 23:12:12   -42461.406496        1.6554
+BFGS:   21 23:14:22   -42462.438005        1.3757
+BFGS:   22 23:16:35   -42463.169077        1.3749
+BFGS:   23 23:18:44   -42464.017001        1.2163
+BFGS:   24 23:20:53   -42464.897670        1.5288
+BFGS:   25 23:23:06   -42465.613505        1.3555
+BFGS:   26 23:25:25   -42466.231458        1.8694
+BFGS:   27 23:27:44   -42466.700612        1.1260
+BFGS:   28 23:30:03   -42467.170226        0.8922
+BFGS:   29 23:32:12   -42467.683434        1.4029
+BFGS:   30 23:34:24   -42468.100862        1.0617
+BFGS:   31 23:36:44   -42468.528040        1.1239
+BFGS:   32 23:38:49   -42469.036984        0.8754
+BFGS:   33 23:41:00   -42469.375604        0.8248
+BFGS:   34 23:43:09   -42469.654981        1.0104
+BFGS:   35 23:45:26   -42469.987950        1.0952
+BFGS:   36 23:47:32   -42470.254231        1.2812
+BFGS:   37 23:49:45   -42470.491769        0.7549
+BFGS:   38 23:52:00   -42470.793136        0.6691
+BFGS:   39 23:54:03   -42470.990382        0.8993
+BFGS:   40 23:56:05   -42471.226278        0.7763
+BFGS:   41 23:58:16   -42471.436221        0.6449
+BFGS:   42 00:00:18   -42471.643487        0.6473
+BFGS:   43 00:02:20   -42471.807329        0.5570
+BFGS:   44 00:04:17   -42472.001972        0.6190
+BFGS:   45 00:06:14   -42472.174795        0.7573
+BFGS:   46 00:08:08   -42472.310143        1.0121
+BFGS:   47 00:10:01   -42472.465670        0.8729
+BFGS:   48 00:12:03   -42472.619797        0.6651
+BFGS:   49 00:14:05   -42472.787898        0.5215
+BFGS:   50 00:15:57   -42472.931657        0.6349
+BFGS:   51 00:17:58   -42473.091234        0.8266
+BFGS:   52 00:19:51   -42473.225708        0.8324
+BFGS:   53 00:21:44   -42473.322657        0.9290
+BFGS:   54 00:23:39   -42473.460035        0.7201
+BFGS:   55 00:25:39   -42473.591724        0.5826
+BFGS:   56 00:27:38   -42473.732299        0.4722
+Updating lock file 'dvc.lock'
+
+To track the changes with git, run:
+
+	git add dvc.lock nodes/CP2KSinglePoint/node-meta.json dvc.yaml nodes/Packmol/node-meta.json params.yaml nodes/ASEGeoOpt/node-meta.json
+
+To enable auto staging, run:
+
+	dvc config core.autostage true
+Use `dvc push` to send your updates to remote storage.

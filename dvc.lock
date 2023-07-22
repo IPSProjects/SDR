@@ -154,3 +154,59 @@ stages:
       hash: md5
       md5: 27e6494960351dd9ac9730f61130ed99
       size: 48
+  ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name ASEGeoOpt
+    deps:
+    - path: nodes/CP2KSinglePoint/atoms.h5
+      hash: md5
+      md5: 933331b0169ed5d19535cb1fe2e79485
+      size: 61928
+    - path: nodes/CP2KSinglePoint/cp2k
+      hash: md5
+      md5: 1bffe2a5d34434d9363d7d4d1547a810.dir
+      size: 21603950
+      nfiles: 3
+    - path: nodes/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: 27e6494960351dd9ac9730f61130ed99
+      size: 48
+    - path: nodes/Packmol/atoms.h5
+      hash: md5
+      md5: c8d2c5d5bc5a0010a21d9f299e99a1bf
+      size: 40128
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: 0ac82bdd2c7215d02c98642b87df3d1f
+      size: 48
+    - path: nodes/Packmol/packmol
+      hash: md5
+      md5: 94bf0223080c635910a3d5d8ae456c46.dir
+      size: 22174
+      nfiles: 3
+    params:
+      params.yaml:
+        ASEGeoOpt:
+          data_id: 0
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: BFGS
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.5
+    outs:
+    - path: nodes/ASEGeoOpt/model_outs
+      hash: md5
+      md5: daf15b048f52c612679f248b6bbdb555.dir
+      size: 89335920
+      nfiles: 7
+    - path: nodes/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: 5feed12cf3358e34459c202cf7d51410
+      size: 48
+    - path: nodes/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: c727910b45cf11b28cce6bfb11c6e2c7
+      size: 1324408
