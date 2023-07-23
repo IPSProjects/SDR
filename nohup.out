@@ -75,3 +75,99 @@ To enable auto staging, run:
 
 	dvc config core.autostage true
 Use `dvc push` to send your updates to remote storage.
+'BASIS_MOLOPT.dvc' didn't change, skipping
+'GTH_POTENTIALS.dvc' didn't change, skipping
+'dftd3.dat.dvc' didn't change, skipping
+Stage 'SmilesToAtoms' didn't change, skipping
+Stage 'Packmol' didn't change, skipping
+Running stage 'CP2KSinglePoint':
+> zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
+
+Aborted.
+ERROR: failed to reproduce 'CP2KSinglePoint': failed to run: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint, exited with 1
+'BASIS_MOLOPT.dvc' didn't change, skipping
+'GTH_POTENTIALS.dvc' didn't change, skipping
+'dftd3.dat.dvc' didn't change, skipping
+Stage 'SmilesToAtoms' didn't change, skipping
+Stage 'Packmol' didn't change, skipping
+Running stage 'CP2KSinglePoint':
+> zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
+2023-07-22 07:35:02,719 (DEBUG): Welcome to IPS - the Interatomic Potential Suite!
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [31:05<00:00, 1865.56s/it]100%|██████████| 1/1 [31:05<00:00, 1865.56s/it]
+Updating lock file 'dvc.lock'
+
+Running stage 'ASEGeoOpt':
+> zntrack run ipsuite.nodes.ASEGeoOpt --name ASEGeoOpt
+2023-07-22 08:06:16,612 (DEBUG): Welcome to IPS - the Interatomic Potential Suite!
+      Step     Time          Energy         fmax
+BFGS:    0 08:07:27   -42326.241347       87.8258
+BFGS:    1 08:21:17   -42356.284859       23.0621
+BFGS:    2 08:26:34   -42384.561694       17.7692
+BFGS:    3 08:32:47   -42404.945928       10.0505
+BFGS:    4 08:36:58   -42418.550342        6.4017
+BFGS:    5 08:40:18   -42428.033188        4.3884
+BFGS:    6 08:43:25   -42434.809908        2.5269
+BFGS:    7 08:46:34   -42439.002499        4.3585
+BFGS:    8 08:49:34   -42442.341493        2.8798
+BFGS:    9 08:52:41   -42444.881553        2.5183
+BFGS:   10 08:55:35   -42447.359432        4.0829
+BFGS:   11 08:58:22   -42450.383857        2.8954
+BFGS:   12 09:01:00   -42452.566621        1.9300
+BFGS:   13 09:03:38   -42453.781573        1.5340
+BFGS:   14 09:06:15   -42455.198328        2.6867
+BFGS:   15 09:08:55   -42456.510073        1.7232
+BFGS:   16 09:11:45   -42457.542067        1.6249
+BFGS:   17 09:14:25   -42458.463293        1.2294
+BFGS:   18 09:17:10   -42459.349701        1.3339
+BFGS:   19 09:19:51   -42460.407403        1.3758
+BFGS:   20 09:22:28   -42461.310852        1.7544
+BFGS:   21 09:24:55   -42462.274185        1.5413
+BFGS:   22 09:27:19   -42463.093065        1.3163
+BFGS:   23 09:29:51   -42463.888997        1.3005
+BFGS:   24 09:32:17   -42464.934592        1.7665
+BFGS:   25 09:34:29   -42465.519424        1.5571
+BFGS:   26 09:36:44   -42466.121420        1.1544
+BFGS:   27 09:39:09   -42466.657412        0.8892
+BFGS:   28 09:41:37   -42467.104254        1.0335
+BFGS:   29 09:44:03   -42467.633047        1.1750
+BFGS:   30 09:46:44   -42468.037012        1.1045
+BFGS:   31 09:49:15   -42468.670890        1.2072
+BFGS:   32 09:51:44   -42469.063778        0.9092
+BFGS:   33 09:54:14   -42469.519425        1.0296
+BFGS:   34 09:56:56   -42469.785315        0.7617
+BFGS:   35 09:59:35   -42470.160854        0.9173
+BFGS:   36 10:02:09   -42470.402346        0.9206
+BFGS:   37 10:04:44   -42470.631211        4.4127
+BFGS:   38 10:07:07   -42470.695146        1.5250
+BFGS:   39 10:09:57   -42471.011711        0.6219
+BFGS:   40 10:12:52   -42471.235711        0.5761
+BFGS:   41 10:15:31   -42471.436867        0.9880
+BFGS:   42 10:18:03   -42471.671631        0.9223
+BFGS:   43 10:20:30   -42471.904039        0.6574
+BFGS:   44 10:22:49   -42472.081943        0.5970
+BFGS:   45 10:25:21   -42472.210158        0.9553
+BFGS:   46 10:27:59   -42472.406328        1.2002
+BFGS:   47 10:30:29   -42472.593249        0.8469
+BFGS:   48 10:32:57   -42472.741975        0.6078
+BFGS:   49 10:35:16   -42472.909954        1.0764
+BFGS:   50 10:37:44   -42473.051904        0.8092
+BFGS:   51 10:39:53   -42473.221756        0.6519
+BFGS:   52 10:41:55   -42473.350992        0.5555
+BFGS:   53 10:44:16   -42473.521587        0.7408
+BFGS:   54 10:46:25   -42473.656084        0.8473
+BFGS:   55 10:48:36   -42473.786337        0.5075
+BFGS:   56 10:50:55   -42473.914641        0.6593
+BFGS:   57 10:53:13   -42474.066533        0.5801
+BFGS:   58 10:55:45   -42474.187201        0.5627
+BFGS:   59 10:57:55   -42474.339428        0.7701
+BFGS:   60 11:00:05   -42474.467779        0.4453
+Updating lock file 'dvc.lock'
+
+To track the changes with git, run:
+
+	git add dvc.yaml dvc.lock nodes/ASEGeoOpt/node-meta.json nodes/CP2KSinglePoint/node-meta.json cp2k.yaml params.yaml nodes/Packmol/node-meta.json
+
+To enable auto staging, run:
+
+	dvc config core.autostage true
+Use `dvc push` to send your updates to remote storage.

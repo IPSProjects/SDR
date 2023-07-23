@@ -94,7 +94,7 @@ stages:
           method: quickstep
           DFT:
             mgrid:
-              cutoff: 500.0
+              cutoff: 600.0
               rel_cutoff: 80.0
               ngrids: 5
             QS:
@@ -143,32 +143,32 @@ stages:
     outs:
     - path: nodes/CP2KSinglePoint/atoms.h5
       hash: md5
-      md5: 933331b0169ed5d19535cb1fe2e79485
+      md5: 9697c746c6f69d428bd2f5a5b7979666
       size: 61928
     - path: nodes/CP2KSinglePoint/cp2k
       hash: md5
-      md5: 1bffe2a5d34434d9363d7d4d1547a810.dir
-      size: 21603950
+      md5: fb7bfe3b3264befe3419725f830a8775.dir
+      size: 21603140
       nfiles: 3
     - path: nodes/CP2KSinglePoint/node-meta.json
       hash: md5
-      md5: 27e6494960351dd9ac9730f61130ed99
+      md5: 864f000e46a2e00cedc27242937f77b0
       size: 48
   ASEGeoOpt:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name ASEGeoOpt
     deps:
     - path: nodes/CP2KSinglePoint/atoms.h5
       hash: md5
-      md5: 933331b0169ed5d19535cb1fe2e79485
+      md5: 9697c746c6f69d428bd2f5a5b7979666
       size: 61928
     - path: nodes/CP2KSinglePoint/cp2k
       hash: md5
-      md5: 1bffe2a5d34434d9363d7d4d1547a810.dir
-      size: 21603950
+      md5: fb7bfe3b3264befe3419725f830a8775.dir
+      size: 21603140
       nfiles: 3
     - path: nodes/CP2KSinglePoint/node-meta.json
       hash: md5
-      md5: 27e6494960351dd9ac9730f61130ed99
+      md5: 864f000e46a2e00cedc27242937f77b0
       size: 48
     - path: nodes/Packmol/atoms.h5
       hash: md5
@@ -199,14 +199,14 @@ stages:
     outs:
     - path: nodes/ASEGeoOpt/model_outs
       hash: md5
-      md5: daf15b048f52c612679f248b6bbdb555.dir
-      size: 89335920
+      md5: 55a17d4cf10898236beac4f2d757f2b4.dir
+      size: 89601466
       nfiles: 7
     - path: nodes/ASEGeoOpt/node-meta.json
       hash: md5
-      md5: 5feed12cf3358e34459c202cf7d51410
+      md5: 336193404ed866dfebe5a4c56f8ef2f8
       size: 48
     - path: nodes/ASEGeoOpt/trajectory.h5
       hash: md5
-      md5: c727910b45cf11b28cce6bfb11c6e2c7
-      size: 1324408
+      md5: ea5b960f96c3f1f8cd9328fb1ea918f5
+      size: 1410008
