@@ -10,21 +10,33 @@ stages:
           seed: 1234
           smiles: C1COC(=O)O1
     outs:
-    - path: nodes/EC_SmilesToAtoms/atoms.h5
+    - path: nodes/EC/SmilesToAtoms/atoms.h5
+      hash: md5
       md5: 0cd1f4f01a2b4ce5f4a2aeecb9cf40ec
       size: 27968
-    - path: nodes/EC_SmilesToAtoms/molecule.png
+    - path: nodes/EC/SmilesToAtoms/molecule.png
+      hash: md5
       md5: 61b66d75e094df86522b46f478be781a
       size: 8120
+    - path: nodes/EC/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 79569931fbfc002236d8a818e0f48248
+      size: 48
   EC_Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name EC_Packmol
     deps:
-    - path: nodes/EC_SmilesToAtoms/atoms.h5
+    - path: nodes/EC/SmilesToAtoms/atoms.h5
+      hash: md5
       md5: 0cd1f4f01a2b4ce5f4a2aeecb9cf40ec
       size: 27968
-    - path: nodes/EC_SmilesToAtoms/molecule.png
+    - path: nodes/EC/SmilesToAtoms/molecule.png
+      hash: md5
       md5: 61b66d75e094df86522b46f478be781a
       size: 8120
+    - path: nodes/EC/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 79569931fbfc002236d8a818e0f48248
+      size: 48
     params:
       params.yaml:
         EC_Packmol:
@@ -35,10 +47,16 @@ stages:
           density: 1321
           tolerance: 2.0
     outs:
-    - path: nodes/EC_Packmol/atoms.h5
+    - path: nodes/EC/Packmol/atoms.h5
+      hash: md5
       md5: 395c8216c3d86c6753fe37d36ffa13f6
       size: 30368
-    - path: nodes/EC_Packmol/packmol
+    - path: nodes/EC/Packmol/node-meta.json
+      hash: md5
+      md5: a7d9bb9997f4226657d199024e50b396
+      size: 48
+    - path: nodes/EC/Packmol/packmol
+      hash: md5
       md5: f886d361602c159450967822afea7960.dir
       size: 6494
       nfiles: 3
@@ -54,10 +72,16 @@ stages:
     - path: dftd3.dat
       md5: 88745bcc951a4bcdccc4d6bcfa78d105
       size: 1959318
-    - path: nodes/EC_Packmol/atoms.h5
+    - path: nodes/EC/Packmol/atoms.h5
+      hash: md5
       md5: 395c8216c3d86c6753fe37d36ffa13f6
       size: 30368
-    - path: nodes/EC_Packmol/packmol
+    - path: nodes/EC/Packmol/node-meta.json
+      hash: md5
+      md5: a7d9bb9997f4226657d199024e50b396
+      size: 48
+    - path: nodes/EC/Packmol/packmol
+      hash: md5
       md5: f886d361602c159450967822afea7960.dir
       size: 6494
       nfiles: 3
@@ -119,27 +143,45 @@ stages:
                 basis_set: TZVP-GTH-q1
                 potential: GTH-PBE-q1
     outs:
-    - path: nodes/EC_CP2KSinglePoint/atoms.h5
+    - path: nodes/EC/CP2KSinglePoint/atoms.h5
+      hash: md5
       md5: 18d895214cf8f88bc71090fea7f1dedb
       size: 45448
-    - path: nodes/EC_CP2KSinglePoint/cp2k
+    - path: nodes/EC/CP2KSinglePoint/cp2k
+      hash: md5
       md5: 4356432cb33bffab50089c5c010269b8.dir
       size: 1837664
       nfiles: 3
+    - path: nodes/EC/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: bec9fa2bfcf7f0bba89839f1dbc633c7
+      size: 48
   EC_x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EC_x10
     deps:
-    - path: nodes/EC_CP2KSinglePoint/atoms.h5
+    - path: nodes/EC/CP2KSinglePoint/atoms.h5
+      hash: md5
       md5: 18d895214cf8f88bc71090fea7f1dedb
       size: 45448
-    - path: nodes/EC_CP2KSinglePoint/cp2k
+    - path: nodes/EC/CP2KSinglePoint/cp2k
+      hash: md5
       md5: 4356432cb33bffab50089c5c010269b8.dir
       size: 1837664
       nfiles: 3
-    - path: nodes/EC_Packmol/atoms.h5
+    - path: nodes/EC/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: bec9fa2bfcf7f0bba89839f1dbc633c7
+      size: 48
+    - path: nodes/EC/Packmol/atoms.h5
+      hash: md5
       md5: 395c8216c3d86c6753fe37d36ffa13f6
       size: 30368
-    - path: nodes/EC_Packmol/packmol
+    - path: nodes/EC/Packmol/node-meta.json
+      hash: md5
+      md5: a7d9bb9997f4226657d199024e50b396
+      size: 48
+    - path: nodes/EC/Packmol/packmol
+      hash: md5
       md5: f886d361602c159450967822afea7960.dir
       size: 6494
       nfiles: 3
@@ -147,6 +189,7 @@ stages:
       params.yaml:
         EC_x10:
           data_id: 0
+          dump_rate: 1000
           init_kwargs: {}
           optimizer: BFGS
           repeat:
@@ -156,10 +199,16 @@ stages:
           run_kwargs:
             fmax: 0.1
     outs:
-    - path: nodes/EC_x10/model_outs
+    - path: nodes/EC/x10/model_outs
+      hash: md5
       md5: d46739874f59ec6bab85993d7ff80133.dir
       size: 12663478
       nfiles: 7
-    - path: nodes/EC_x10/optim.traj
-      md5: 01496edbf69ce86b4abaecf32b3c6a82
-      size: 1928773
+    - path: nodes/EC/x10/node-meta.json
+      hash: md5
+      md5: a752775aefb6f550fd24c2ad3266fe89
+      size: 48
+    - path: nodes/EC/x10/trajectory.h5
+      hash: md5
+      md5: 8872d0963d4e144c0e830c63e8f99f27
+      size: 1532008

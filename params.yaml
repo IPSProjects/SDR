@@ -12,6 +12,7 @@ EC_SmilesToAtoms:
     smiles: C1COC(=O)O1
 EC_x10:
     data_id: 0
+    dump_rate: 1000
     init_kwargs: {}
     optimizer: BFGS
     repeat:

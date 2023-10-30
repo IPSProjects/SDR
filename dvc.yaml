@@ -4,40 +4,56 @@ stages:
     params:
     - EC_SmilesToAtoms
     outs:
-    - nodes/EC_SmilesToAtoms/atoms.h5
-    - nodes/EC_SmilesToAtoms/molecule.png
+    - nodes/EC/SmilesToAtoms/atoms.h5
+    - nodes/EC/SmilesToAtoms/molecule.png
+    metrics:
+    - nodes/EC/SmilesToAtoms/node-meta.json:
+        cache: false
   EC_Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name EC_Packmol
     deps:
-    - nodes/EC_SmilesToAtoms/atoms.h5
-    - nodes/EC_SmilesToAtoms/molecule.png
+    - nodes/EC/SmilesToAtoms/atoms.h5
+    - nodes/EC/SmilesToAtoms/molecule.png
+    - nodes/EC/SmilesToAtoms/node-meta.json
     params:
     - EC_Packmol
     outs:
-    - nodes/EC_Packmol/atoms.h5
-    - nodes/EC_Packmol/packmol
+    - nodes/EC/Packmol/atoms.h5
+    - nodes/EC/Packmol/packmol
+    metrics:
+    - nodes/EC/Packmol/node-meta.json:
+        cache: false
   EC_CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name EC_CP2KSinglePoint
     deps:
     - GTH_BASIS_SETS
     - GTH_POTENTIALS
     - dftd3.dat
-    - nodes/EC_Packmol/atoms.h5
-    - nodes/EC_Packmol/packmol
+    - nodes/EC/Packmol/atoms.h5
+    - nodes/EC/Packmol/node-meta.json
+    - nodes/EC/Packmol/packmol
     params:
     - cp2k.yaml:
     outs:
-    - nodes/EC_CP2KSinglePoint/atoms.h5
-    - nodes/EC_CP2KSinglePoint/cp2k
+    - nodes/EC/CP2KSinglePoint/atoms.h5
+    - nodes/EC/CP2KSinglePoint/cp2k
+    metrics:
+    - nodes/EC/CP2KSinglePoint/node-meta.json:
+        cache: false
   EC_x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EC_x10
     deps:
-    - nodes/EC_CP2KSinglePoint/atoms.h5
-    - nodes/EC_CP2KSinglePoint/cp2k
-    - nodes/EC_Packmol/atoms.h5
-    - nodes/EC_Packmol/packmol
+    - nodes/EC/CP2KSinglePoint/atoms.h5
+    - nodes/EC/CP2KSinglePoint/cp2k
+    - nodes/EC/CP2KSinglePoint/node-meta.json
+    - nodes/EC/Packmol/atoms.h5
+    - nodes/EC/Packmol/node-meta.json
+    - nodes/EC/Packmol/packmol
     params:
     - EC_x10
     outs:
-    - nodes/EC_x10/model_outs
-    - nodes/EC_x10/optim.traj
+    - nodes/EC/x10/model_outs
+    - nodes/EC/x10/trajectory.h5
+    metrics:
+    - nodes/EC/x10/node-meta.json:
+        cache: false
