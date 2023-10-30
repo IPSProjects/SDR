@@ -12,6 +12,7 @@ EMC_SmilesToAtoms:
     smiles: CCOC(=O)OC
 EMC_x10:
     data_id: 0
+    dump_rate: 1000
     init_kwargs: {}
     optimizer: BFGS
     repeat:

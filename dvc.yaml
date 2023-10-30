@@ -4,40 +4,56 @@ stages:
     params:
     - EMC_SmilesToAtoms
     outs:
-    - nodes/EMC_SmilesToAtoms/atoms.h5
-    - nodes/EMC_SmilesToAtoms/molecule.png
+    - nodes/EMC/SmilesToAtoms/atoms.h5
+    - nodes/EMC/SmilesToAtoms/molecule.png
+    metrics:
+    - nodes/EMC/SmilesToAtoms/node-meta.json:
+        cache: false
   EMC_Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name EMC_Packmol
     deps:
-    - nodes/EMC_SmilesToAtoms/atoms.h5
-    - nodes/EMC_SmilesToAtoms/molecule.png
+    - nodes/EMC/SmilesToAtoms/atoms.h5
+    - nodes/EMC/SmilesToAtoms/molecule.png
+    - nodes/EMC/SmilesToAtoms/node-meta.json
     params:
     - EMC_Packmol
     outs:
-    - nodes/EMC_Packmol/atoms.h5
-    - nodes/EMC_Packmol/packmol
+    - nodes/EMC/Packmol/atoms.h5
+    - nodes/EMC/Packmol/packmol
+    metrics:
+    - nodes/EMC/Packmol/node-meta.json:
+        cache: false
   EMC_CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name EMC_CP2KSinglePoint
     deps:
     - GTH_BASIS_SETS
     - GTH_POTENTIALS
     - dftd3.dat
-    - nodes/EMC_Packmol/atoms.h5
-    - nodes/EMC_Packmol/packmol
+    - nodes/EMC/Packmol/atoms.h5
+    - nodes/EMC/Packmol/node-meta.json
+    - nodes/EMC/Packmol/packmol
     params:
     - cp2k.yaml:
     outs:
-    - nodes/EMC_CP2KSinglePoint/atoms.h5
-    - nodes/EMC_CP2KSinglePoint/cp2k
+    - nodes/EMC/CP2KSinglePoint/atoms.h5
+    - nodes/EMC/CP2KSinglePoint/cp2k
+    metrics:
+    - nodes/EMC/CP2KSinglePoint/node-meta.json:
+        cache: false
   EMC_x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EMC_x10
     deps:
-    - nodes/EMC_CP2KSinglePoint/atoms.h5
-    - nodes/EMC_CP2KSinglePoint/cp2k
-    - nodes/EMC_Packmol/atoms.h5
-    - nodes/EMC_Packmol/packmol
+    - nodes/EMC/CP2KSinglePoint/atoms.h5
+    - nodes/EMC/CP2KSinglePoint/cp2k
+    - nodes/EMC/CP2KSinglePoint/node-meta.json
+    - nodes/EMC/Packmol/atoms.h5
+    - nodes/EMC/Packmol/node-meta.json
+    - nodes/EMC/Packmol/packmol
     params:
     - EMC_x10
     outs:
-    - nodes/EMC_x10/model_outs
-    - nodes/EMC_x10/optim.traj
+    - nodes/EMC/x10/model_outs
+    - nodes/EMC/x10/trajectory.h5
+    metrics:
+    - nodes/EMC/x10/node-meta.json:
+        cache: false
