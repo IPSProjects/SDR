@@ -18,8 +18,8 @@ stages:
       size: 2512
     - path: nodes/SmilesToAtoms/node-meta.json
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
+      md5: 4f60b11b4aa1bea837742fe243c35b36
+      size: 48
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
@@ -31,8 +31,8 @@ stages:
       size: 2512
     - path: nodes/SmilesToAtoms/node-meta.json
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
+      md5: 4f60b11b4aa1bea837742fe243c35b36
+      size: 48
     params:
       params.yaml:
         Packmol:
@@ -48,8 +48,8 @@ stages:
       size: 30016
     - path: nodes/Packmol/node-meta.json
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
+      md5: d610719c2c0d3baf6d04750e74c60f1c
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 27b9e5a5d410eb8ee38e0ec54e261680.dir
       size: 4034
@@ -71,8 +71,8 @@ stages:
       size: 30016
     - path: nodes/Packmol/node-meta.json
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
+      md5: d610719c2c0d3baf6d04750e74c60f1c
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 27b9e5a5d410eb8ee38e0ec54e261680.dir
       size: 4034
@@ -144,8 +144,8 @@ stages:
       nfiles: 3
     - path: nodes/CP2KSinglePoint/node-meta.json
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
+      md5: da794ccc4c572ee5c4a3af40b60afb1c
+      size: 48
   MeOH-x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name MeOH-x10
     deps:
@@ -158,15 +158,15 @@ stages:
       nfiles: 3
     - path: nodes/CP2KSinglePoint/node-meta.json
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
+      md5: da794ccc4c572ee5c4a3af40b60afb1c
+      size: 48
     - path: nodes/Packmol/atoms.h5
       md5: 1867c1d6f9859921b1c0d67960912051
       size: 30016
     - path: nodes/Packmol/node-meta.json
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
+      md5: d610719c2c0d3baf6d04750e74c60f1c
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 27b9e5a5d410eb8ee38e0ec54e261680.dir
       size: 4034
@@ -191,8 +191,8 @@ stages:
       nfiles: 7
     - path: nodes/MeOH-x10/node-meta.json
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
+      md5: eeafae3deec5a3389416922efb5c17c8
+      size: 48
     - path: nodes/MeOH-x10/trajectory.h5
       hash: md5
       md5: 7bf8997d62517cd3303f6e1abf2b537b
