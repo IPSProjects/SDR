@@ -16,6 +16,10 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 73ecc6c1c0a0759a2ec38d6fbc36c025
       size: 2512
+    - path: nodes/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
@@ -25,6 +29,10 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 73ecc6c1c0a0759a2ec38d6fbc36c025
       size: 2512
+    - path: nodes/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
     params:
       params.yaml:
         Packmol:
@@ -38,6 +46,10 @@ stages:
     - path: nodes/Packmol/atoms.h5
       md5: 1867c1d6f9859921b1c0d67960912051
       size: 30016
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
     - path: nodes/Packmol/packmol
       md5: 27b9e5a5d410eb8ee38e0ec54e261680.dir
       size: 4034
@@ -57,6 +69,10 @@ stages:
     - path: nodes/Packmol/atoms.h5
       md5: 1867c1d6f9859921b1c0d67960912051
       size: 30016
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
     - path: nodes/Packmol/packmol
       md5: 27b9e5a5d410eb8ee38e0ec54e261680.dir
       size: 4034
@@ -126,6 +142,10 @@ stages:
       md5: 0c2e2444bbe3bda7f6ba48223f62d6a5.dir
       size: 425424
       nfiles: 3
+    - path: nodes/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
   MeOH-x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name MeOH-x10
     deps:
@@ -136,9 +156,17 @@ stages:
       md5: 0c2e2444bbe3bda7f6ba48223f62d6a5.dir
       size: 425424
       nfiles: 3
+    - path: nodes/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
     - path: nodes/Packmol/atoms.h5
       md5: 1867c1d6f9859921b1c0d67960912051
       size: 30016
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
     - path: nodes/Packmol/packmol
       md5: 27b9e5a5d410eb8ee38e0ec54e261680.dir
       size: 4034
@@ -147,6 +175,7 @@ stages:
       params.yaml:
         MeOH-x10:
           data_id: 0
+          dump_rate: 1000
           init_kwargs: {}
           optimizer: BFGS
           repeat:
@@ -160,6 +189,11 @@ stages:
       md5: 65a27558bfbe0313e961fedb935f1f0c.dir
       size: 3929326
       nfiles: 7
-    - path: nodes/MeOH-x10/optim.traj
-      md5: 4ab0799e56507157f65f02b18020675f
-      size: 904424
+    - path: nodes/MeOH-x10/node-meta.json
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
+    - path: nodes/MeOH-x10/trajectory.h5
+      hash: md5
+      md5: 7bf8997d62517cd3303f6e1abf2b537b
+      size: 788256

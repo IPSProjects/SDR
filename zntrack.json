@@ -3,6 +3,10 @@
         "image": {
             "_type": "pathlib.Path",
             "value": "$nwd$/molecule.png"
+        },
+        "nwd": {
+            "_type": "pathlib.Path",
+            "value": "nodes/SmilesToAtoms"
         }
     },
     "Packmol": {
@@ -28,6 +32,10 @@
         "structures": {
             "_type": "pathlib.Path",
             "value": "$nwd$/packmol"
+        },
+        "nwd": {
+            "_type": "pathlib.Path",
+            "value": "nodes/Packmol"
         }
     },
     "CP2KSinglePoint": {
@@ -41,7 +49,7 @@
             "dftd3.dat"
         ],
         "cp2k_params": "cp2k.yaml",
-        "cp2k_shell": "cp2k_shell.ssmp",
+        "cp2k_shell": null,
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -65,9 +73,14 @@
             "value": "$nwd$/atoms.h5"
         },
         "wfn_restart_file": null,
-        "wfn_restart_node": null
+        "wfn_restart_node": null,
+        "nwd": {
+            "_type": "pathlib.Path",
+            "value": "nodes/CP2KSinglePoint"
+        }
     },
     "MeOH-x10": {
+        "checker_list": null,
         "data": {
             "_type": "znflow.Connection",
             "value": {
@@ -107,9 +120,13 @@
             "_type": "pathlib.Path",
             "value": "$nwd$/model_outs"
         },
-        "traj": {
+        "traj_file": {
             "_type": "pathlib.Path",
-            "value": "$nwd$/optim.traj"
+            "value": "$nwd$/trajectory.h5"
+        },
+        "nwd": {
+            "_type": "pathlib.Path",
+            "value": "nodes/MeOH-x10"
         }
     }
 }
