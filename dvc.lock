@@ -16,6 +16,10 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 1f1c3b414f0b504c22b538d375428e22
       size: 4556
+    - path: nodes/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: de398298b93e5ffb1eed845994e78d8c
+      size: 48
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
@@ -25,6 +29,10 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 1f1c3b414f0b504c22b538d375428e22
       size: 4556
+    - path: nodes/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: de398298b93e5ffb1eed845994e78d8c
+      size: 48
     params:
       params.yaml:
         Packmol:
@@ -38,6 +46,10 @@ stages:
     - path: nodes/Packmol/atoms.h5
       md5: 7e7f8106794016e0f1d33079e6e03dba
       size: 30368
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: e8a50e648dbc05f14835d551d40d905b
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 99adfe99736979827572d145fa0bc290.dir
       size: 6494
@@ -57,6 +69,10 @@ stages:
     - path: nodes/Packmol/atoms.h5
       md5: 7e7f8106794016e0f1d33079e6e03dba
       size: 30368
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: e8a50e648dbc05f14835d551d40d905b
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 99adfe99736979827572d145fa0bc290.dir
       size: 6494
@@ -126,6 +142,10 @@ stages:
       md5: 37484be04b43d9e90a94745b1505ca1e.dir
       size: 1113815
       nfiles: 3
+    - path: nodes/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: 5e437e052b9c922fc4578714d82e32eb
+      size: 48
   Acetone-x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name Acetone-x10
     deps:
@@ -136,9 +156,17 @@ stages:
       md5: 37484be04b43d9e90a94745b1505ca1e.dir
       size: 1113815
       nfiles: 3
+    - path: nodes/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: 5e437e052b9c922fc4578714d82e32eb
+      size: 48
     - path: nodes/Packmol/atoms.h5
       md5: 7e7f8106794016e0f1d33079e6e03dba
       size: 30368
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: e8a50e648dbc05f14835d551d40d905b
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 99adfe99736979827572d145fa0bc290.dir
       size: 6494
@@ -147,6 +175,7 @@ stages:
       params.yaml:
         Acetone-x10:
           data_id: 0
+          dump_rate: 1000
           init_kwargs: {}
           optimizer: BFGS
           repeat:
@@ -160,6 +189,11 @@ stages:
       md5: 3d04aaffa0ead05cfe26623495e03699.dir
       size: 6060360
       nfiles: 7
-    - path: nodes/Acetone-x10/optim.traj
-      md5: 6aac4e519318a3e50be68f1341278136
-      size: 673379
+    - path: nodes/Acetone-x10/node-meta.json
+      hash: md5
+      md5: 59076bf1a07f7edb766aea1be80eb553
+      size: 48
+    - path: nodes/Acetone-x10/trajectory.h5
+      hash: md5
+      md5: 508d8dfb1499e883f248aa037c8aa190
+      size: 713848
