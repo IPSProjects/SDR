@@ -16,6 +16,10 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 5d6fda4c829f9e52847751de0833a133
       size: 4569
+    - path: nodes/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 8246cbd16d23c184e5d21992fdac440d
+      size: 48
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
@@ -25,6 +29,10 @@ stages:
     - path: nodes/SmilesToAtoms/molecule.png
       md5: 5d6fda4c829f9e52847751de0833a133
       size: 4569
+    - path: nodes/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 8246cbd16d23c184e5d21992fdac440d
+      size: 48
     params:
       params.yaml:
         Packmol:
@@ -38,6 +46,10 @@ stages:
     - path: nodes/Packmol/atoms.h5
       md5: f2fff71dd556172bfbf78869fb7366b6
       size: 30128
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: f7fa2f81898191fe9d6e3d60e0faf185
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 6ff1f2df62facf65ed7ae9c1fcedb91a.dir
       size: 5876
@@ -57,6 +69,10 @@ stages:
     - path: nodes/Packmol/atoms.h5
       md5: f2fff71dd556172bfbf78869fb7366b6
       size: 30128
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: f7fa2f81898191fe9d6e3d60e0faf185
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 6ff1f2df62facf65ed7ae9c1fcedb91a.dir
       size: 5876
@@ -126,6 +142,10 @@ stages:
       md5: 5563a4a62a0c0d5f8582b43c3f95cb70.dir
       size: 814316
       nfiles: 3
+    - path: nodes/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: b57b1a8440a10906ca0d7085c0d3ccc2
+      size: 48
   EtOH-x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EtOH-x10
     deps:
@@ -136,9 +156,17 @@ stages:
       md5: 5563a4a62a0c0d5f8582b43c3f95cb70.dir
       size: 814316
       nfiles: 3
+    - path: nodes/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: b57b1a8440a10906ca0d7085c0d3ccc2
+      size: 48
     - path: nodes/Packmol/atoms.h5
       md5: f2fff71dd556172bfbf78869fb7366b6
       size: 30128
+    - path: nodes/Packmol/node-meta.json
+      hash: md5
+      md5: f7fa2f81898191fe9d6e3d60e0faf185
+      size: 48
     - path: nodes/Packmol/packmol
       md5: 6ff1f2df62facf65ed7ae9c1fcedb91a.dir
       size: 5876
@@ -147,6 +175,7 @@ stages:
       params.yaml:
         EtOH-x10:
           data_id: 0
+          dump_rate: 1000
           init_kwargs: {}
           optimizer: BFGS
           repeat:
@@ -160,6 +189,11 @@ stages:
       md5: 8c67a57b738d61d690519f96d9fcd1d4.dir
       size: 5364241
       nfiles: 7
-    - path: nodes/EtOH-x10/optim.traj
-      md5: 49965668d8afaba966bde94a8c5173ad
-      size: 855042
+    - path: nodes/EtOH-x10/node-meta.json
+      hash: md5
+      md5: a862bacf8c381bad47151caf7969772b
+      size: 48
+    - path: nodes/EtOH-x10/trajectory.h5
+      hash: md5
+      md5: c4c1b745026ef33ab56050766190f7ef
+      size: 1712968

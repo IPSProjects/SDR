@@ -6,16 +6,23 @@ stages:
     outs:
     - nodes/SmilesToAtoms/atoms.h5
     - nodes/SmilesToAtoms/molecule.png
+    metrics:
+    - nodes/SmilesToAtoms/node-meta.json:
+        cache: false
   Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name Packmol
     deps:
     - nodes/SmilesToAtoms/atoms.h5
     - nodes/SmilesToAtoms/molecule.png
+    - nodes/SmilesToAtoms/node-meta.json
     params:
     - Packmol
     outs:
     - nodes/Packmol/atoms.h5
     - nodes/Packmol/packmol
+    metrics:
+    - nodes/Packmol/node-meta.json:
+        cache: false
   CP2KSinglePoint:
     cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name CP2KSinglePoint
     deps:
@@ -23,21 +30,30 @@ stages:
     - GTH_POTENTIALS
     - dftd3.dat
     - nodes/Packmol/atoms.h5
+    - nodes/Packmol/node-meta.json
     - nodes/Packmol/packmol
     params:
     - cp2k.yaml:
     outs:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
+    metrics:
+    - nodes/CP2KSinglePoint/node-meta.json:
+        cache: false
   EtOH-x10:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name EtOH-x10
     deps:
     - nodes/CP2KSinglePoint/atoms.h5
     - nodes/CP2KSinglePoint/cp2k
+    - nodes/CP2KSinglePoint/node-meta.json
     - nodes/Packmol/atoms.h5
+    - nodes/Packmol/node-meta.json
     - nodes/Packmol/packmol
     params:
     - EtOH-x10
     outs:
     - nodes/EtOH-x10/model_outs
-    - nodes/EtOH-x10/optim.traj
+    - nodes/EtOH-x10/trajectory.h5
+    metrics:
+    - nodes/EtOH-x10/node-meta.json:
+        cache: false
