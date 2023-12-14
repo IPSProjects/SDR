@@ -1,7 +1,7 @@
 [core]
     remote = origin
 ['remote "origin"']
-    url = s3://dvc/SDR
-    endpointurl = https://minio.pythonf.net
-    access_key_id = SDR-EzeJxrSPPr
-    secret_access_key = BRYMOZXt9jr7eYbft9g03CW8DQXvrlFH
+    url = s3://public/dvc/SDR/
+    endpointurl = https://minio.icp.uni-stuttgart.de
+    access_key_id = public_eip8waishae6ies
+    secret_access_key = OoCiedah9aw9Pui8mie7phahlatie7oi
